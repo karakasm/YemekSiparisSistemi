@@ -1,0 +1,126 @@
+﻿<!doctype html>
+<html lang="tr-TR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewBag.Title-Yemek Sipariş Sistemi</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Verdana, sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: Georgia, serif;
+        }
+
+
+        :root {
+            --blue: #0d6efd;
+            --indigo: #6610f2;
+            --purple: #6f42c1;
+            --pink: #d63384;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --yellow: #ffc107;
+            --green: #198754;
+            --teal: #20c997;
+            --cyan: #0dcaf0;
+            --white: #fff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            --black: #000;
+            --offcanvas-width: 240px;
+            --topNavbar-height: 56px;
+        }
+
+        #navbarSupportedContent .nav-link:hover:not(.active) {
+            color: var(--white) !important;
+        }
+
+        main {
+            margin-top: var(--topNavbar-height);
+        }
+
+    </style>
+    @RenderSection("styles",false)
+</head>
+<body>
+
+    <!--navbar start-->
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color:darkviolet" data-bs-theme="dark">
+        <div class="container-fluid">
+            <!--offcanvas trigger starts-->
+            <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                <i class="bi bi-list" data-bs-target="#offcanvasScrolling"></i>
+            </button>
+            <!--offcanvas trigger ends-->
+            <a class="navbar-brand" href="#">Yemek Sipariş Sistemi</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="collapse navbar-collapse mx-2" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Hakkımızda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">İletişim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Giriş Yap</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Üye Ol</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--navbar end-->
+
+
+    <main class="mt-5 pt-3">
+        @RenderBody()
+    </main>
+
+    <!--footer start-->
+    <footer id="footer" class="text-center bg-light fixed-bottom p-2 mt-3 mt-lg-0">
+        <p class="m-0">Copyrights Yemek Sipariş Sistemi, &copy; 2023</p>
+    </footer>
+    <!--footer end-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    </script>
+
+    @RenderSection("scripts",false)
+
+
+</body>
+</html>

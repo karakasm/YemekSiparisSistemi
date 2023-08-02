@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\assets\images\**" />
+    <Compile Remove="wwwroot\assets\libs\**" />
+    <Compile Remove="wwwroot\assets\vendor\**" />
+    <Content Remove="wwwroot\assets\images\**" />
+    <Content Remove="wwwroot\assets\libs\**" />
+    <Content Remove="wwwroot\assets\vendor\**" />
+    <EmbeddedResource Remove="wwwroot\assets\images\**" />
+    <EmbeddedResource Remove="wwwroot\assets\libs\**" />
+    <EmbeddedResource Remove="wwwroot\assets\vendor\**" />
+    <None Remove="wwwroot\assets\images\**" />
+    <None Remove="wwwroot\assets\libs\**" />
+    <None Remove="wwwroot\assets\vendor\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\Admin\" />
+    <Folder Include="Controllers\Customer\" />
+    <Folder Include="Controllers\Restaurant\" />
+    <Folder Include="Data\" />
+    <Folder Include="Middleware\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
+  </ItemGroup>
+
+</Project>
