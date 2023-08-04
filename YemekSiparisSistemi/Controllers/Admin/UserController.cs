@@ -36,8 +36,7 @@ namespace YemekSiparisSistemi.Controllers.Admin
             if (user != null)
             {
                 user.Role = _context.Roles.Find(user.RoleId);
-                User temp = user;
-                _context.Users.AddAsync(temp);
+                _context.Users.AddAsync(user);
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");

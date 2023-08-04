@@ -44,10 +44,12 @@
                 <div class="col-md-6">
                     <label for="role" class="form-label">Rol</label>
                     <select id="role" name="RoleId" class="form-select shadow-none" required>
-                        <option selected>Seç...</option>
                         @foreach(var role in roles)
                         {
-                            <option value="@role.Id">@role.RoleName</option>
+                            if(role.RoleName != "Restaurant")
+                            {
+                                <option value="@role.Id">@role.RoleName</option>
+                            }
                         }
                     </select>
                 </div>
