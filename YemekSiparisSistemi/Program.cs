@@ -35,10 +35,8 @@ namespace YemekSiparisSistemi
             app.UseAuthorization();
 
             app.MapControllerRoute(
-                name:"Defaul",
+                name:"Default",
                 pattern: "{controller=Home}/{action=Index}/{id:int?}");
-          
-
 
             app.Run();
         }

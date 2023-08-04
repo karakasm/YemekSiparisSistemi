@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" aria-current="page">
-                    <a href="/v1/Admin/Index" style="color:indigo;">Ana Sayfa</a>
+                    <a href="/Admin/Index" style="color:indigo;">Ana Sayfa</a>
                 </li>
                 <li class="breadcrumb-item active">Roller</li>
             </ol>
@@ -103,7 +103,7 @@
                 if (role != null) {
                     $.ajax({
                         type: "POST",
-                        url: "/v1/Admin/Roles/Create",
+                        url: "/Admin/Roles/Create",
                         data: role,
                         success: function (response) {
                             if (response != null) {
@@ -127,7 +127,7 @@
                 let id = $("#deleteRole").data("data-id");
                 $.ajax({
                     method: "POST",
-                    url: "/v1/Admin/Roles/Delete/" + id,
+                    url: "/Admin/Roles/Delete/" + id,
                     success: function (roleName){
                         if(roleName != ""){
                             $("tr#" + id).remove();
