@@ -17,22 +17,30 @@ namespace YemekSiparisSistemi.Controllers.Admin
         [Route("Users")]
         public async Task<IActionResult> Index()
         {
-           return View("~/Views/Admin/User/Index.cshtml", await _context.Users.ToListAsync());
+            return View("~/Views/Admin/User/Index.cshtml", await _context.Users.Include(user => user.Role).ToListAsync()); ;
         }
 
 
         [HttpGet]
         [Route("Users/Create")]
-        public string Create()
+        public IActionResult Create()
         {
-            return "user create page";
+            ViewData["Roles"] = _context.Roles.ToList();
+            return View("~/Views/Admin/User/Create.cshtml");
         }
 
         [HttpPost]
         [Route("Users/Create")]
         public IActionResult Create(User user)
         {
-            return View();
+            if (user != null)
+            {
+                user.Role = _context.Roles.Find(user.RoleId);
+                User temp = user;
+                _context.Users.AddAsync(temp);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
     }
 }

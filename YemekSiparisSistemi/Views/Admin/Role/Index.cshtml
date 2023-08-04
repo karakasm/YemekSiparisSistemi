@@ -18,14 +18,14 @@
             <input type="text" id="RoleName" name="RoleName" class="form-control shadow-none" placeholder="Rol Adı" aria-label="Role Name">
         </div>
         <div class="col-12 col-sm-6">
-            <button type="submit" id="btnAddRole" class="btn btn-outline-primary">Ekle</button>
+            <button type="submit" id="btnAddRole" class="btn btn-sm btn-outline-primary">Ekle</button>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-12 col-lg-8 table-responsive">
-            <table id="role-table" class="table">
+            <table id="role-table" class="table align-middle caption-top text-center">
                 <caption>Roller Listesi</caption>
-                <thead>
+                <thead class="table-light">
                     <tr>
                         <th>#</th>
                         <th>Rol Adı</th>
@@ -43,7 +43,7 @@
                             <td>@index</td>
                             <td>@role.RoleName</td>
                             <td>@role.Users.Count</td>
-                            <td><button id="btnSil" onclick="OpenDeleteModal(@role.Id,'@role.RoleName')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Sil</button></td>
+                            <td><button id="btnSil" onclick="OpenDeleteModal(@role.Id,'@role.RoleName')" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Sil</button></td>
                         </tr>
                         index++;
                     }

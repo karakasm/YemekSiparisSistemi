@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using YemekSiparisSistemi.Models;
 
 namespace YemekSiparisSistemi.Controllers.Admin
@@ -16,7 +17,7 @@ namespace YemekSiparisSistemi.Controllers.Admin
         [Route("Roles")]
         public IActionResult Index()
         {
-            return View("~/Views/Admin/Role/Index.cshtml", _context.Roles.ToList());
+            return View("~/Views/Admin/Role/Index.cshtml", _context.Roles.Include(r => r.Users).ToList());
         }
 
         [HttpPost]
