@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Admin-Kullanıcılar";
+}
+
+@model List<YemekSiparisSistemi.Models.User>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/v1/Admin/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item active">Kullanıcılar</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row py-3 justify-content-center">
+        <div class="col-12 col-lg-8 mb-3">
+            <div class="table-responsive">
+                <table class="table">
+                    <caption>Kullanıcılar Listesi</caption>
+                    <thead>
+                        <tr>
+                            <th>Rol</th>
+                            <th>Ad</th>
+                            <th>Soyad</th>
+                            <th>Email</th>
+                            <th>Telefon</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="7"> İlgili sınıfa/sorguya ait bir duyuru bulunmamaktadır!</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var user in Model)
+                            {
+                                <tr>
+                                    <td>@user.Role</td>
+                                    <td>@user.Name</td>
+                                    <td>@user.Surname</td>
+                                    <td>@user.Email</td>
+                                    <td>@user.Phone</td>
+                                    <td><a href="#" type="button" class="btn btn-success">Düzenle</a></td>
+                                    <td><a href="#" type="button" class="btn btn-danger">Sil</a></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 text-center">
+            <a href="/v1/admin/users/create" type="button" class="btn btn-outline-primary">Yeni Kullanıcı Ekle</a>
+        </div>
+    </div>
+</div>

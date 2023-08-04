@@ -16,3 +16,86 @@
         </div>
     </section>
 </div>
+
+<!-- Login Modal start-->
+<div class="modal fade" tabindex="-1" id="loginModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Giriş Formu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" method="#" action="#">
+                    <div class="col-12">
+                        <input type="email" class="form-control shadow-none mb-1" id="Email" placeholder="Email...">
+                        <span class="emailErrorMessage text-danger" style="display:none;"></span>
+                        <span class="emailSuccessMessage text-success" style="display:none;"></span>
+                    </div>
+                    <div class="col-12">
+                        <input type="password" class="form-control shadow-none" id="Password" placeholder="Şifre..." />
+                        <span class="passwordErrorMessage text-danger" style="display:none;"></span>
+                        <span class="passwordSuccessMessage text-success" style="display:none;"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex flex-row justify-content-end align-items-center">
+                <button type="button" class="btn btn-outline-primary">Giriş Yap</button>
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#signUpModal">Üye Ol</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Login Modal end-->
+
+
+<!--Sign Up Modal start-->
+<div class="modal fade" tabindex="-1" id="signUpModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Üye Formu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" method="#" action="#">
+                    <div class="col-12">
+                        <input type="text" class="form-control shadow-none mb-1" id="Name" placeholder="Name...">
+                        <span class="nameErrorMessage text-danger" style="display:none;"></span>
+                        <span class="nameSuccessMessage text-success" style="display:none;"></span>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control shadow-none mb-1" id="Surname" placeholder="Surname...">
+                        <span class="surnameErrorMessage text-danger" style="display:none;"></span>
+                        <span class="surnameSuccessMessage text-success" style="display:none;"></span>
+                    </div>
+                    <div class="col-12">
+                        <input type="email" class="form-control shadow-none mb-1" id="Email" placeholder="Email...">
+                        <span class="emailErrorMessage text-danger" style="display:none;"></span>
+                        <span class="emailSuccessMessage text-success" style="display:none;"></span>
+                    </div>
+                    <div class="col-12">
+                        <input type="tel" class="form-control shadow-none mb-1" id="Phone" placeholder="Telefon...">
+                        <span class="phoneErrorMessage text-danger" style="display:none;"></span>
+                        <span class="phoneSuccessMessage text-success" style="display:none;"></span>
+                    </div>
+                    <div class="col-12">
+                        <input type="password" class="form-control shadow-none" id="Password" placeholder="Şifre..." />
+                        <span class="passwordErrorMessage text-danger" style="display:none;"></span>
+                        <span class="passwordSuccessMessage text-success" style="display:none;"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex flex-row justify-content-end align-items-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Girişe Geri Dön</button>
+                <button type="button" class="btn btn-outline-success">Üye Ol</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Sign Up Modal end-->
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+          
+}

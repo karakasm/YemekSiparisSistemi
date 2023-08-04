@@ -1,3 +1,5 @@
+using YemekSiparisSistemi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace YemekSiparisSistemi
 {
@@ -9,6 +11,10 @@ namespace YemekSiparisSistemi
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //Add DBContext services to the container
+            builder.Services.AddDbContext<FoodOrderSystemDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 
             var app = builder.Build();
 
@@ -28,9 +34,10 @@ namespace YemekSiparisSistemi
             app.UseRouting();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => {
-                endpoints.MapDefaultControllerRoute();
-            });
+            app.MapControllerRoute(
+                name:"Defaul",
+                pattern: "{controller=Home}/{action=Index}/{id:int?}");
+          
 
 
             app.Run();

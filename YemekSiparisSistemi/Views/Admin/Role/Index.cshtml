@@ -1,0 +1,173 @@
+﻿@{
+    ViewData["Title"] = "Roller";
+}
+@model List<YemekSiparisSistemi.Models.Role>
+<div class="container-fluid">
+    <div class="row">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/v1/Admin/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item active">Roller</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12 col-sm-6 mb-3 mb-sm-0">
+            <input type="text" id="RoleName" name="RoleName" class="form-control shadow-none" placeholder="Rol Adı" aria-label="Role Name">
+        </div>
+        <div class="col-12 col-sm-6">
+            <button type="submit" id="btnAddRole" class="btn btn-outline-primary">Ekle</button>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 table-responsive">
+            <table id="role-table" class="table">
+                <caption>Roller Listesi</caption>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Rol Adı</th>
+                        <th>Kullanıcı Sayısı</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 1;
+                    }
+                    @foreach (var role in Model)
+                    {
+                        <tr id=@role.Id>
+                            <td>@index</td>
+                            <td>@role.RoleName</td>
+                            <td>@role.Users.Count</td>
+                            <td><button id="btnSil" onclick="OpenDeleteModal(@role.Id,'@role.RoleName')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Sil</button></td>
+                        </tr>
+                        index++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--toast start-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Yemek Sipariş Sistemi</strong>
+            <small>Az Önce...</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toast-message">
+        </div>
+    </div>
+</div>
+<!--toast end-->
+
+<!--Delete Modal-->
+<div class="modal" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Rol Sil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteModalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" id="deleteRole" class="btn btn-primary">Evet</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Finish Delete Modal-->
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+
+        function OpenDeleteModal(id,name){
+            $("#deleteModalMessage").text(name + " isimli rol silinsin mi?");
+            $("#deleteRole").data("data-id",id);
+        }
+       
+
+        $(document).ready(function () {
+            $("#btnAddRole").click(function () {
+                const role = new Object();
+                role.RoleName = $("#RoleName").val();
+                if (role != null) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/v1/Admin/Roles/Create",
+                        data: role,
+                        success: function (response) {
+                            if (response != null) {
+                                AddRoleToTable(response);
+                            }
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            $("#deleteRole").click(function(){
+                let id = $("#deleteRole").data("data-id");
+                $.ajax({
+                    method: "POST",
+                    url: "/v1/Admin/Roles/Delete/" + id,
+                    success: function (roleName){
+                        if(roleName != ""){
+                            $("tr#" + id).remove();
+                            $("#deleteModal").modal("toggle");
+                            TriggerToast(roleName,"silindi");
+                        }
+                    },
+                });
+               
+            });
+        });
+
+        function AddRoleToTable(role) {
+
+            var table = document.getElementById("role-table");
+            var rowCount = table.rows.length;
+            var row = table.insertRow(-1);
+            row.id = role.id;
+            var c1 = row.insertCell(0);
+            var c2 = row.insertCell(1);
+            var c3 = row.insertCell(2);
+            var c4 = row.insertCell(3);
+            c1.innerHTML = rowCount;
+            c2.innerHTML = role.roleName;
+            c3.innerHTML = role.users.length;
+            let btnSil = document.createElement("a");
+            btnSil.innerText = "Sil";
+            btnSil.classList.add("btn", "btn-danger");
+            c4.appendChild(btnSil);
+
+            $("#RoleName").val("");
+
+            TriggerToast(role.roleName, "eklendi");
+        }
+        function TriggerToast(message, status) {
+            const toastRoleAdded = document.getElementById('toast')
+            const messageBody = document.getElementById("toast-message");
+            messageBody.innerText = message + " isimli rol, başarılı bir şekilde " + status;
+            const instance = bootstrap.Toast.getOrCreateInstance(toastRoleAdded)
+            instance.show();
+        }
+    </script>
+}
