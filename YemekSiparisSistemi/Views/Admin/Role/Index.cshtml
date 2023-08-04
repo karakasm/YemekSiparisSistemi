@@ -154,8 +154,12 @@
             c2.innerHTML = role.roleName;
             c3.innerHTML = role.users.length;
             let btnSil = document.createElement("a");
+            btnSil.id = "btnSil";
+            btnSil.setAttribute("data-bs-toggle","modal");
+            btnSil.setAttribute("data-bs-target", "#deleteModal");
             btnSil.innerText = "Sil";
             btnSil.classList.add("btn", "btn-danger");
+            btnSil.onclick = OpenDeleteModal(role.id,role.roleName);
             c4.appendChild(btnSil);
 
             $("#RoleName").val("");
