@@ -48,7 +48,7 @@
                                     <td>@user.Surname</td>
                                     <td>@user.Email</td>
                                     <td>@user.Phone</td>
-                                    <td><a href="#" type="button" class="btn btn-success btn-sm">Düzenle</a></td>
+                                    <td><a href="/Admin/Users/Detail/@user.Id" type="button" class="btn btn-success btn-sm">Düzenle</a></td>
                                     <td><button onclick="OpenUserDeleteModal(@user.Id,'@user.Name' + ' ' + '@user.Surname' )" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#userDeleteModal">Sil</button></td>
                                 </tr>
                             }

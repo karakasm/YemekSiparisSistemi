@@ -49,13 +49,35 @@ namespace YemekSiparisSistemi.Controllers.Admin
         public string Delete(int id)
         {
             User user = _context.Users.Find(id);
-            if(user != null)
+            if (user != null)
             {
                 _context.Users.Remove(user);
                 _context.SaveChanges();
                 return user.Name + " " + user.Surname;
             }
             return "";
+        }
+
+        [HttpGet]
+        [Route("Users/Detail/{id}")]
+
+        public IActionResult Details(int id)
+        {
+            User user = _context.Users.Include(u => u.Role).FirstOrDefault(u => u.Id == id);
+            ViewData["Roles"] = _context.Roles.ToList();
+            return View("~/Views/Admin/User/Detail.cshtml", user);
+        }
+
+        [HttpPost]
+        [Route("Users/Update")]
+        public IActionResult Update(User user)
+        {
+            if(user != null)
+            {
+                _context.Users.Update(user);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
     }
 }
