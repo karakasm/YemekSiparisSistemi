@@ -42,14 +42,14 @@
                         {
                             foreach (var user in Model)
                             {
-                                <tr>
+                                <tr id="@user.Id">
                                     <td>@user.Role?.RoleName</td>
                                     <td>@user.Name</td>
                                     <td>@user.Surname</td>
                                     <td>@user.Email</td>
                                     <td>@user.Phone</td>
                                     <td><a href="#" type="button" class="btn btn-success btn-sm">Düzenle</a></td>
-                                    <td><a href="#" type="button" class="btn btn-danger btn-sm">Sil</a></td>
+                                    <td><button onclick="OpenUserDeleteModal(@user.Id,'@user.Name' + ' ' + '@user.Surname' )" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#userDeleteModal">Sil</button></td>
                                 </tr>
                             }
                         }
@@ -62,3 +62,76 @@
         </div>
     </div>
 </div>
+
+<!--toast start-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Yemek Sipariş Sistemi</strong>
+            <small>Az Önce...</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toast-message">
+        </div>
+    </div>
+</div>
+<!--toast end-->
+<!--Delete Modal-->
+<div class="modal" id="userDeleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kullanıcı Sil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="userDeleteModalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">İptal</button>
+                <button type="button" id="btnDeleteUser" class="btn btn-primary btn-sm">Evet</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Finish Delete Modal-->
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+
+        function OpenUserDeleteModal(id, userFullName){
+            $("#userDeleteModalMessage").text(userFullName + " isimli kullanıcı silinsin mi?");
+            $("#btnDeleteUser").data("data-id",id);
+        }
+
+        $(document).ready(function(){
+            $("#btnDeleteUser").click(function (){
+                let userId = $("#btnDeleteUser").data("data-id");
+                $.ajax({
+                    method: "post",
+                    url: "/admin/users/delete/" + userId,
+                    success:function (userFullName){
+                        if (userFullName != "") {
+                            $("tr#" + userId).remove();
+                            $("#userDeleteModal").modal("toggle");
+                            TriggerToast(userFullName,"silindi");
+                        }else{
+                            $("#userDeleteModal").modal("toggle");
+                            alert ("Kullanıcı Silme işlemi başarısız!!!");
+                        }
+                    }
+                });
+            });
+        });
+
+        function TriggerToast(message, status) {
+            const toast = document.getElementById('toast')
+            const messageBody = document.getElementById("toast-message");
+            messageBody.innerText = message + " isimli rol, başarılı bir şekilde " + status;
+            const instance = bootstrap.Toast.getOrCreateInstance(toast)
+            instance.show();
+        }
+
+    </script>
+}
