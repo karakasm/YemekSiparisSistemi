@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Admin-Restoranlar ";
 }
 
@@ -53,7 +52,7 @@
                                     <td>@company?.Phone</td>
                                     <td>@company?.Address.Description</td>
                                     <td><a href="#" type="button" class="btn btn-success btn-sm">Düzenle</a></td>
-                                    <td><button class="btn btn-danger btn-sm">Sil</button></td>
+                                    <td><button onclick="OpenRestaurantDeleteModal(@company.Id,'@company.CompanyName')" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#restaurantDeleteModal">Sil</button></td>
                                 </tr>
                                 index++;
                             }
@@ -68,4 +67,76 @@
 
     </div>
 </div>
+
+<!--toast start-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Yemek Sipariş Sistemi</strong>
+            <small>Az Önce...</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toast-message">
+        </div>
+    </div>
+</div>
+<!--toast end-->
+<!--Delete Modal-->
+<div class="modal" id="restaurantDeleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Restoran Sil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="restaurantDeleteModalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">İptal</button>
+                <button type="button" id="btnDeleteRestaurant" class="btn btn-primary btn-sm">Evet</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Finish Delete Modal-->
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        function OpenRestaurantDeleteModal(id, companyName) {
+            $("#restaurantDeleteModalMessage").text(companyName + " isimli restoran silinsin mi?");
+            $("#btnDeleteRestaurant").data("data-id", id);
+        }
+
+        $(document).ready(function () {
+            $("#btnDeleteRestaurant").click(function () {
+                let restaurantId = $("#btnDeleteRestaurant").data("data-id");
+                $.ajax({
+                    method: "post",
+                    url: "/admin/restaurants/delete/" + restaurantId,
+                    success: function (companyName) {
+                        if (companyName != "") {
+                            $("tr#" + restaurantId).remove();
+                            $("#restaurantDeleteModal").modal("toggle");
+                            TriggerToast(companyName, "silindi");
+                        } else {
+                            $("#restaurantDeleteModal").modal("toggle");
+                            alert("Restoran Silme işlemi başarısız!!!");
+                        }
+                    }
+                });
+            });
+        });
+
+
+        function TriggerToast(message, status) {
+            const toast = document.getElementById('toast')
+            const messageBody = document.getElementById("toast-message");
+            messageBody.innerText = message + " isimli restoran, başarılı bir şekilde " + status;
+            const instance = bootstrap.Toast.getOrCreateInstance(toast)
+            instance.show();
+        }
+
+    </script>
+}
 

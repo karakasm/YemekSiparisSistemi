@@ -128,7 +128,7 @@
         function TriggerToast(message, status) {
             const toast = document.getElementById('toast')
             const messageBody = document.getElementById("toast-message");
-            messageBody.innerText = message + " isimli rol, başarılı bir şekilde " + status;
+            messageBody.innerText = message + " isimli kullanıcı, başarılı bir şekilde " + status;
             const instance = bootstrap.Toast.getOrCreateInstance(toast)
             instance.show();
         }

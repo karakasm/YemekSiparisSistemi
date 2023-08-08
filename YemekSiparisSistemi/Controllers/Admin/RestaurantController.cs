@@ -21,15 +21,16 @@ namespace YemekSiparisSistemi.Controllers.Admin
         [Route("Restaurants")]
         public IActionResult Index()
         {
-            
+
             return View("~/Views/Admin/Restaurant/Index.cshtml", _context.Companies.Include(c => c.Address).ToList());
         }
 
         [HttpGet]
         [Route("Restaurants/Create")]
-        public IActionResult Create() {
+        public IActionResult Create()
+        {
             ViewData["Provinces"] = _context.Provinces.ToList();
-           // ViewData["Districts"] = _context.Districts.ToList();
+            // ViewData["Districts"] = _context.Districts.ToList();
             return View("~/Views/Admin/Restaurant/Create.cshtml");
         }
 
@@ -43,7 +44,7 @@ namespace YemekSiparisSistemi.Controllers.Admin
 
             company.AddressId = address.Id;
 
-            if(Request.Form.Files.Count > 0)
+            if (Request.Form.Files.Count > 0)
             {
                 try
                 {
@@ -65,7 +66,7 @@ namespace YemekSiparisSistemi.Controllers.Admin
 
                     using (FileStream fs = System.IO.File.Create(filePath))
                     {
-                       await logo.CopyToAsync(fs);
+                        await logo.CopyToAsync(fs);
                     }
 
                     company.LogoPath = fileName;
@@ -73,12 +74,53 @@ namespace YemekSiparisSistemi.Controllers.Admin
                     _context.Companies.Add(company);
                     await _context.SaveChangesAsync();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.Write(ex);
                 }
             }
             return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        [Route("Restaurants/Delete/{id}")]
+
+        public string Delete(int id)
+        {
+            Company company = _context.Companies.Find(id);
+            if(company != null)
+            {
+                _context.Companies.Remove(company);
+
+                try
+                {
+                    // Check if file exists with its full path
+                    string path = Path.Combine(_appEnvironment.WebRootPath, "Logos");
+                    string filePath = Path.Combine(path, company.LogoPath);
+
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        // If file found, delete it
+                       System.IO.File.Delete(filePath);
+                    }
+                }
+                catch (IOException ioExp)
+                {
+                    Console.WriteLine(ioExp.Message);
+                }
+
+                Address companyAddress = _context.Addresses.Find(company.AddressId);
+
+                if(companyAddress != null)
+                {
+                    _context.Addresses.Remove(companyAddress);
+                }
+
+                _context.SaveChanges();
+                return company?.CompanyName;
+            }
+            return "";
         }
     }
 }
