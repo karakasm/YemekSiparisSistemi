@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YemekSiparisSistemi.Models;
 
@@ -11,9 +12,11 @@ using YemekSiparisSistemi.Models;
 namespace YemekSiparisSistemi.Migrations
 {
     [DbContext(typeof(FoodOrderSystemDbContext))]
-    partial class FoodOrderSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230808121357_AddRoleForeignKeyToCompanies")]
+    partial class AddRoleForeignKeyToCompanies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

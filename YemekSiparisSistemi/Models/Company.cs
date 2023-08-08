@@ -7,6 +7,8 @@ public partial class Company
 {
     public int Id { get; set; }
 
+    public int? RoleId { get; set; }
+
     public string? CompanyName { get; set; }
 
     public string LogoPath { get; set; } = null!;
@@ -20,6 +22,8 @@ public partial class Company
     public string Password { get; set; } = null!;
 
     public virtual Address? Address { get; set; }
+
+    public virtual Role? Role { get; set; }
 
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 
