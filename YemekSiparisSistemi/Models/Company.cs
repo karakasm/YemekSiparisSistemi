@@ -9,7 +9,7 @@ public partial class Company
 
     public string? CompanyName { get; set; }
 
-    public byte[] Logo { get; set; } = null!;
+    public string LogoPath { get; set; } = null!;
 
     public int? AddressId { get; set; }
 

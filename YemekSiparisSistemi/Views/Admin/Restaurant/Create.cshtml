@@ -1,0 +1,139 @@
+﻿@using YemekSiparisSistemi.Models;
+@{
+    ViewData["Title"] = "Admin-Restoran Oluştur";
+    List<Province> provinces = ViewData["Provinces"] as List<Province>;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Admin/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/Admin/Restaurants" style="color:indigo;">Restoranlar</a>
+                </li>
+                <li class="breadcrumb-item active">Oluştur</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row py-3 justify-content-center">
+        <div class="col-12 col-lg-8">
+            <form class="row g-3" method="post" action="/Admin/Restaurants/Create" enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <label for="companyName" class="form-label">Şirket Adı</label>
+                    <input type="text" name="CompanyName" class="form-control shadow-none" id="companyName" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="logo" class="form-label">Logo</label>
+                    <input type="file" name="Logo" class="form-control shadow-none" id="logo" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">E-Posta</label>
+                    <input type="email" name="Email" class="form-control shadow-none" id="email" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Telefon Numarası</label>
+                    <input type="tel" name="Phone" class="form-control shadow-none" id="phone" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Şifre</label>
+                    <input type="password" name="Password" class="form-control shadow-none" id="password" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="province" class="form-label">İl</label>
+                    <select id="province" onchange="GetDistricts()" name="ProvinceId" class="form-select shadow-none" required>
+                        <option selected>İl Seç...</option>
+                        @foreach (Province item in provinces)
+                        {
+                            <option value="@item.Id">@item.ProvinceName</option>
+                        }
+                    </select>
+                </div>
+                  <div class="col-md-6">
+                    <label for="district" class="form-label">İlçe</label>
+                    <select id="district" name="DistrictId" class="form-select shadow-none" required>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="neighbourhood" class="form-label">Mahalle/Semt</label>
+                    <input type="text" name="Neighbourhood" class="form-control shadow-none" id="neighbourhood" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="street" class="form-label">Cadde</label>
+                    <input type="text" name="Street" class="form-control shadow-none" id="street" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="apartmentName" class="form-label">Apartman Adı</label>
+                    <input type="text" name="ApartmentName" class="form-control shadow-none" id="apartmentName" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="postalCode" class="form-label">Posta Kodu</label>
+                    <input type="text" name="PostalCode" class="form-control shadow-none" id="postalCode" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="apartmentNumber" class="form-label">Apartman Numarası</label>
+                    <input type="text" name="ApartmentNumber" class="form-control shadow-none" id="apartmentNumber" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="floor" class="form-label">Kat</label>
+                    <input type="text" name="Floor" class="form-control shadow-none" id="floor" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="tag" class="form-label">Adres Etiketi</label>
+                    <input type="text" name="Tag" class="form-control shadow-none" id="tag" required>
+                </div>
+                <div class="col-12">
+                    <label for="description" class="form-label">Adres Tarifi</label>
+                    <textarea name="Description" class="form-control shadow-none" id="description" rows="3"></textarea>
+                </div>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary col-12 col-md-6">Oluştur</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+
+        function GetDistricts(){
+            let ddlProvince = document.getElementById("province");
+            let id = ddlProvince.value;
+            $.ajax({
+                method:"get",
+                url:"/Admin/Province/" + id + "/Districts",
+                success: function(response){
+                    if(response){
+                        AddDistrictsToSelectList(JSON.parse(response));
+                    }else{
+                        console.log("Bir hata gerçekleşti.");
+                    }
+                }
+            });
+        }
+
+
+        function AddDistrictsToSelectList(districts){
+           $("#district").empty();
+            const districtDropdown = document.getElementById("district");
+            for(let index in districts){
+                let district = districts[index];
+                let option = document.createElement("option");
+                option.setAttribute('value', district.Id);
+                let optionText = document.createTextNode(district.DistrictName);
+                option.appendChild(optionText);
+
+                districtDropdown.appendChild(option);
+            }
+            console.log(typeof(districts));
+            console.log(districts);
+
+        }
+      
+    </script>
+    }
+

@@ -12,8 +12,8 @@ using YemekSiparisSistemi.Models;
 namespace YemekSiparisSistemi.Migrations
 {
     [DbContext(typeof(FoodOrderSystemDbContext))]
-    [Migration("20230807143740_initialMigration")]
-    partial class initialMigration
+    [Migration("20230808093853_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,10 +229,9 @@ namespace YemekSiparisSistemi.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("email");
 
-                    b.Property<byte[]>("Logo")
+                    b.Property<string>("LogoPath")
                         .IsRequired()
-                        .HasColumnType("image")
-                        .HasColumnName("logo");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()

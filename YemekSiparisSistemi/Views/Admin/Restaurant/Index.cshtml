@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "Admin-Restoranlar ";
+}
+
+@model List<YemekSiparisSistemi.Models.Company>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Admin/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item active">Restoranlar</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row py-3 justify-content-center">
+        <div class="col-12 mb-3">
+            <div class="table-responsive">
+                <table class="table align-middle caption-top text-center">
+                    <caption>Restoranlar Listesi</caption>
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Restoran Adı</th>
+                            <th style="width: 50px;">Logo</th>
+                            <th>E-Posta</th>
+                            <th>Telefon</th>
+                            <th>Adres</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="7"> Kayıtlı restoran bulunmamaktadır!</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            int index = 1;
+                            foreach (var company in Model)
+                            {
+                                <tr id="@company?.Id">
+                                    <td>@index</td>
+                                    <td>@company?.CompanyName</td>
+                                    <td><img src="~/Logos/@company.LogoPath" + width="45" height="45" alt="Logo"></img></td>
+                                    <td>@company?.Email</td>
+                                    <td>@company?.Phone</td>
+                                    <td>@company?.Address.Description</td>
+                                    <td><a href="#" type="button" class="btn btn-success btn-sm">Düzenle</a></td>
+                                    <td><button class="btn btn-danger btn-sm">Sil</button></td>
+                                </tr>
+                                index++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 text-center">
+            <a href="/Admin/Restaurants/Create" type="button" class="btn btn-sm btn-outline-primary">Yeni Restoran Ekle</a>
+        </div>
+
+    </div>
+</div>
+

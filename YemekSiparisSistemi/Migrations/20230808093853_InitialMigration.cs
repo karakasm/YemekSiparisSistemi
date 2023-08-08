@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YemekSiparisSistemi.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -193,7 +193,7 @@ namespace YemekSiparisSistemi.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     company_name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    logo = table.Column<byte[]>(type: "image", nullable: false),
+                    LogoPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     address_id = table.Column<int>(type: "int", nullable: true),
                     email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     phone = table.Column<string>(type: "varchar(25)", unicode: false, maxLength: 25, nullable: false),

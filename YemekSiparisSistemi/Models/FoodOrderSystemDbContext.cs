@@ -205,9 +205,6 @@ public partial class FoodOrderSystemDbContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .HasColumnName("email");
-            entity.Property(e => e.Logo)
-                .HasColumnType("image")
-                .HasColumnName("logo");
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .HasColumnName("password");

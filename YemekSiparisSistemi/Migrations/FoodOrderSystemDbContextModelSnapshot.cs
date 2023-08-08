@@ -226,10 +226,9 @@ namespace YemekSiparisSistemi.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("email");
 
-                    b.Property<byte[]>("Logo")
+                    b.Property<string>("LogoPath")
                         .IsRequired()
-                        .HasColumnType("image")
-                        .HasColumnName("logo");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
