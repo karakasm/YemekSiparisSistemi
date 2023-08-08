@@ -30,6 +30,7 @@ namespace YemekSiparisSistemi.Controllers.Admin
         public IActionResult Create()
         {
             ViewData["Provinces"] = _context.Provinces.ToList();
+            ViewData["role"] = _context.Roles.FirstOrDefault(r => r.RoleName == "Restaurant");
             // ViewData["Districts"] = _context.Districts.ToList();
             return View("~/Views/Admin/Restaurant/Create.cshtml");
         }

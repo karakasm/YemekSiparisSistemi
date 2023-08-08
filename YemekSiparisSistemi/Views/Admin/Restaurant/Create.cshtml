@@ -1,7 +1,8 @@
 ﻿@using YemekSiparisSistemi.Models;
 @{
     ViewData["Title"] = "Admin-Restoran Oluştur";
-    List<Province> provinces = ViewData["Provinces"] as List<Province>;
+    Role? role = ViewData["role"] as Role;
+    List<Province>? provinces = ViewData["Provinces"] as List<Province>;
 }
 
 <div class="container-fluid">
@@ -51,7 +52,7 @@
                         }
                     </select>
                 </div>
-                  <div class="col-md-6">
+                <div class="col-md-6">
                     <label for="district" class="form-label">İlçe</label>
                     <select id="district" name="DistrictId" class="form-select shadow-none" required>
                     </select>
@@ -88,7 +89,8 @@
                     <label for="description" class="form-label">Adres Tarifi</label>
                     <textarea name="Description" class="form-control shadow-none" id="description" rows="3"></textarea>
                 </div>
-                <div class="col-12 text-center">
+                <input hidden name="RoleId" value="@role?.Id"/>
+                <div class="col-12">
                     <button type="submit" class="btn btn-primary col-12 col-md-6">Oluştur</button>
                 </div>
             </form>
@@ -100,16 +102,16 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>
 
-        function GetDistricts(){
+        function GetDistricts() {
             let ddlProvince = document.getElementById("province");
             let id = ddlProvince.value;
             $.ajax({
-                method:"get",
-                url:"/Admin/Province/" + id + "/Districts",
-                success: function(response){
-                    if(response){
+                method: "get",
+                url: "/Admin/Province/" + id + "/Districts",
+                success: function (response) {
+                    if (response) {
                         AddDistrictsToSelectList(JSON.parse(response));
-                    }else{
+                    } else {
                         console.log("Bir hata gerçekleşti.");
                     }
                 }
@@ -117,10 +119,10 @@
         }
 
 
-        function AddDistrictsToSelectList(districts){
-           $("#district").empty();
+        function AddDistrictsToSelectList(districts) {
+            $("#district").empty();
             const districtDropdown = document.getElementById("district");
-            for(let index in districts){
+            for (let index in districts) {
                 let district = districts[index];
                 let option = document.createElement("option");
                 option.setAttribute('value', district.Id);
@@ -129,11 +131,11 @@
 
                 districtDropdown.appendChild(option);
             }
-            console.log(typeof(districts));
+            console.log(typeof (districts));
             console.log(districts);
 
         }
-      
+
     </script>
     }
 
