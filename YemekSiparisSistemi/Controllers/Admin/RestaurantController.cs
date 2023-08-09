@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using YemekSiparisSistemi.Models;
 
 namespace YemekSiparisSistemi.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     [Route("Admin")]
     public class RestaurantController : Controller
     {
@@ -22,7 +25,7 @@ namespace YemekSiparisSistemi.Controllers.Admin
         public IActionResult Index()
         {
 
-            return View("~/Views/Admin/Restaurant/Index.cshtml", _context.Companies.Include(c => c.Address).ToList());
+            return View("~/Views/Admin/Restaurant/Index.cshtml", _context.Companies.Include(c => c.Address).ThenInclude(a => a.Province).ThenInclude(a => a.Districts).ToList());
         }
 
         [HttpGet]

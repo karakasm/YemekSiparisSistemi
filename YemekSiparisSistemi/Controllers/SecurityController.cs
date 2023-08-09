@@ -1,12 +1,90 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using YemekSiparisSistemi.Models;
 
 namespace YemekSiparisSistemi.Controllers
 {
+    [Authorize]
     public class SecurityController : Controller
     {
-        public IActionResult Index()
+
+        private readonly FoodOrderSystemDbContext _context;
+
+        public SecurityController(FoodOrderSystemDbContext foodOrderSystemDbContext)
         {
-            return View();
+            _context = foodOrderSystemDbContext;
+        }
+
+
+        
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Login([FromForm] string email, [FromForm] string password)
+        {
+            User? user = await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(user => user.Email == email && user.Password == password);
+            if (user != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.Name + " " + user.Surname),
+                    new Claim(ClaimTypes.Email,user.Email),
+                    new Claim(ClaimTypes.Role, user.Role?.RoleName),
+                };
+
+                var claimsIdentity = new ClaimsIdentity(claims,
+                    CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity));
+
+                if (user.Role?.RoleName == "Admin")
+                {
+                    return RedirectToAction("AdminIndex", "Home");
+                }
+                else if (user.Role?.RoleName == "Customer")
+                {
+                    return RedirectToAction("CustomerIndex", "Home");
+                }
+            }
+            else
+            {
+                Company? company = _context.Companies.Include(c => c.Role).FirstOrDefault(c => c.Email == email && c.Password == password);
+
+                if (company != null)
+                {
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Email, company.Email),
+                        new Claim(ClaimTypes.Name, company.CompanyName),
+                        new Claim(ClaimTypes.Role, company.Role?.RoleName),
+                    };
+
+
+                    var claimsIdentity = new ClaimsIdentity(claims,
+                        CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity));
+
+                    return RedirectToAction("RestaurantIndex", "Home");
+                }
+            }
+            ViewBag.LoginError = "Kullanıcı Adı veya Şifre hatalı!!!";
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }

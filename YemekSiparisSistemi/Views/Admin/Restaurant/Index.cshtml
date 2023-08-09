@@ -50,7 +50,7 @@
                                     <td><img src="~/Logos/@company.LogoPath" + width="45" height="45" alt="Logo"></img></td>
                                     <td>@company?.Email</td>
                                     <td>@company?.Phone</td>
-                                    <td>@company?.Address.Description</td>
+                                    <td>@company?.Address?.Province?.ProvinceName/@company?.Address?.District?.DistrictName/@company?.Address?.Neighbourhood</td>
                                     <td><a href="#" type="button" class="btn btn-success btn-sm">Düzenle</a></td>
                                     <td><button onclick="OpenRestaurantDeleteModal(@company.Id,'@company.CompanyName')" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#restaurantDeleteModal">Sil</button></td>
                                 </tr>

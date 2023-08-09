@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
+using System.Data;
 using YemekSiparisSistemi.Models;
 
 namespace YemekSiparisSistemi.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     [Route("Admin")]
     public class DistrictController : Controller
     {

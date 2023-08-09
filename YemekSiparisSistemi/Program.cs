@@ -1,5 +1,6 @@
 using YemekSiparisSistemi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace YemekSiparisSistemi
 {
@@ -12,13 +13,23 @@ namespace YemekSiparisSistemi
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            //Add Authentication Middleware services to the container.
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(options =>
+               {
+                   options.LoginPath = "/Index";
+                   options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                   options.SlidingExpiration = true;
+               });
+
             //Add DBContext services to the container
             builder.Services.AddDbContext<FoodOrderSystemDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 
             var app = builder.Build();
 
-    
+
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -32,10 +43,11 @@ namespace YemekSiparisSistemi
 
 
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
-                name:"Default",
+                name: "Default",
                 pattern: "{controller=Home}/{action=Index}/{id:int?}");
 
             app.Run();
