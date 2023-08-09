@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Text.Json;
 using YemekSiparisSistemi.Models;
 
 namespace YemekSiparisSistemi.Controllers
@@ -30,9 +31,10 @@ namespace YemekSiparisSistemi.Controllers
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.Name + " " + user.Surname),
+
+                    new Claim(ClaimTypes.Name, user.Name.ToUpper() + " " + user.Surname.ToUpper()),
                     new Claim(ClaimTypes.Email,user.Email),
-                    new Claim(ClaimTypes.Role, user.Role?.RoleName),
+                    new Claim(ClaimTypes.Role, user.Role?.RoleName.ToLower()),
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims,
@@ -42,11 +44,11 @@ namespace YemekSiparisSistemi.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity));
 
-                if (user.Role?.RoleName == "Admin")
+                if (user.Role?.RoleName?.ToLower() == Role.IS_ADMIN)
                 {
                     return RedirectToAction("AdminIndex", "Home");
                 }
-                else if (user.Role?.RoleName == "Customer")
+                else if (user.Role?.RoleName.ToLower() == Role.IS_CUSTOMER)
                 {
                     return RedirectToAction("CustomerIndex", "Home");
                 }
@@ -61,7 +63,7 @@ namespace YemekSiparisSistemi.Controllers
                     {
                         new Claim(ClaimTypes.Email, company.Email),
                         new Claim(ClaimTypes.Name, company.CompanyName),
-                        new Claim(ClaimTypes.Role, company.Role?.RoleName),
+                        new Claim(ClaimTypes.Role, company.Role?.RoleName.ToLower()),
                     };
 
 

@@ -5,7 +5,7 @@ using YemekSiparisSistemi.Models;
 
 namespace YemekSiparisSistemi.Controllers.Admin
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Role.IS_ADMIN)]
     [Route("Admin")]
     public class RoleController : Controller
     {

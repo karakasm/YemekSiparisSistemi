@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using YemekSiparisSistemi.Models;
 
 namespace YemekSiparisSistemi.Controllers
 {
@@ -15,17 +16,16 @@ namespace YemekSiparisSistemi.Controllers
             return View("~/Views/Index.cshtml");
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = Role.IS_ADMIN)]
         [Route("Admin")]
         [Route("Admin/Index")]
         [HttpGet]
         public IActionResult AdminIndex()
         {
-            var user = HttpContext.User.Claims.FirstOrDefault(c => c.ValueType == "Email");
             return View("~/Views/Admin/Index.cshtml");
         }
 
-        [Authorize(Roles ="Restaurant")]
+        [Authorize(Roles = Role.IS_RESTAURANT)]
         [Route("Restaurant")]
         [Route("Restaurant/Index")]
         [HttpGet]
@@ -34,7 +34,7 @@ namespace YemekSiparisSistemi.Controllers
             return View("~/Views/Restaurant/Index.cshtml");
         }
 
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = Role.IS_CUSTOMER)]
         [Route("Customer")]
         [Route("Customer/Index")]
         [HttpGet]
