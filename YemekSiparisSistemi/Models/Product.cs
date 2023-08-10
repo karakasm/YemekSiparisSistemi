@@ -15,7 +15,7 @@ public partial class Product
 
     public decimal UnitPrice { get; set; }
 
-    public byte[] ProductImage { get; set; } = null!;
+    public string ProductImagePath { get; set; } = null!;
 
     public string? Content { get; set; }
 

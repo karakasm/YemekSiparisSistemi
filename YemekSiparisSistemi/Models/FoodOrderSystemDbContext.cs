@@ -473,9 +473,6 @@ public partial class FoodOrderSystemDbContext : DbContext
             entity.Property(e => e.Content)
                 .HasMaxLength(255)
                 .HasColumnName("content");
-            entity.Property(e => e.ProductImage)
-                .HasColumnType("image")
-                .HasColumnName("product_image");
             entity.Property(e => e.ProductName)
                 .HasMaxLength(30)
                 .HasColumnName("product_name");

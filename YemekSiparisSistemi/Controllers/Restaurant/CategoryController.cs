@@ -28,7 +28,7 @@ namespace YemekSiparisSistemi.Controllers.Restaurant
         [Route("Categories")]
         public async Task<IActionResult> Index()
         {
-            return View("~/Views/Restaurant/Category/Index.cshtml", await _context.Categories.Where(c => c.CompanyId == currentCompanyId).ToListAsync());
+            return View("~/Views/Restaurant/Category/Index.cshtml", await _context.Categories.Where(c => c.CompanyId == currentCompanyId).Include(c => c.Products).ToListAsync());
         }
 
         [HttpPost]

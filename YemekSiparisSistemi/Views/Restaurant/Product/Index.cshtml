@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Ürünler";
+}
+
+@model List<YemekSiparisSistemi.Models.Product>
+<div class="container-fluid">
+    <div class="row">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Restaurant/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item active">Ürünler</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row py-3 justify-content-center">
+        <div class="col-12 mb-3">
+            <div class="table-responsive">
+                <table class="table align-middle caption-top text-center">
+                    <caption>Ürünler Listesi</caption>
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Ürün Adı</th>
+                            <th>Ürün Resmi</th>
+                            <th>Birim Fiyatı</th>
+                            <th>Kategorisi</th>
+                            <th>Detay</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="8"> Kayıtlı Ürün bulunmamaktadır!</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            int i = 1;
+                            foreach (var product in Model)
+                            {
+                                <tr id="@product.Id">
+                                    <td>@i</td>
+                                    <td>@product.ProductName</td>
+                                    <td><img src="~/Products/@product.CompanyId.ToString()/@product.ProductImagePath" + width="45" height="45" alt="Logo" /></td>
+                                    <td>@product.UnitPrice</td>
+                                    <td>@product.Category?.CategoryName</td>
+                                    <td><a href="#" class="btn btn-sm btn-primary">Detay</a></td>
+                                    <td><a href="#" class="btn btn-sm btn-success">Düzenle</a></td>
+                                    <td><a onclick="OpenUserDeleteModal(@product.Id,'@product.ProductName')" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#userDeleteModal">Sil</a></td>
+                                </tr>
+                                i++;
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 text-center">
+            <a href="/Restaurant/Products/Create" type="button" class="btn btn-sm btn-outline-primary">Yeni Ürün Ekle</a>
+        </div>
+    </div>
+</div>
+

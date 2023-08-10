@@ -54,7 +54,7 @@ namespace YemekSiparisSistemi.Controllers.Admin
                 {
                     IFormFile? logo = Request.Form.Files["Logo"];
 
-                    string fileExtension = Path.GetExtension(logo.FileName);
+                    string? fileExtension = Path.GetExtension(logo?.FileName);
 
                     string fileName = company.AddressId.ToString() + "_" + company.CompanyName?.ToLower() + "_" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + fileExtension;
 

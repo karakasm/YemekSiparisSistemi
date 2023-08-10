@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YemekSiparisSistemi.Models;
 
@@ -11,9 +12,11 @@ using YemekSiparisSistemi.Models;
 namespace YemekSiparisSistemi.Migrations
 {
     [DbContext(typeof(FoodOrderSystemDbContext))]
-    partial class FoodOrderSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230810131759_ChangeProductImageColumnToStringType")]
+    partial class ChangeProductImageColumnToStringType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -616,9 +619,10 @@ namespace YemekSiparisSistemi.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("content");
 
-                    b.Property<string>("ProductImagePath")
+                    b.Property<byte[]>("ProductImage")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("image")
+                        .HasColumnName("product_image");
 
                     b.Property<string>("ProductName")
                         .IsRequired()

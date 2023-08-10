@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Ürün Ekle";
+}
+@model List<YemekSiparisSistemi.Models.Category>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Restaurant/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/Restaurant/Products" style="color:indigo;">Ürünler</a>
+                </li>
+                <li class="breadcrumb-item active">Ürün-Ekle</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row py-3 justify-content-center">
+        <div class="col-12 col-lg-8">
+            <form class="row g-3" method="post" action="/Restaurant/Products/Create" enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <label for="ProductName" class="form-label">Ürün Adı</label>
+                    <input type="text" name="ProductName" class="form-control shadow-none" id="ProductName" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="UnitPrice" class="form-label">Birim Fiyat</label>
+                    <input type="number" min="1" step="any" name="UnitPrice" class="form-control shadow-none" id="UnitPrice" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="ProductImagePath" class="form-label">Ürün Resmi</label>
+                    <input type="file" name="ProductImagePath" class="form-control shadow-none" id="ProductImagePath" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="CategoryId" class="form-label">Kategori</label>
+                    <select id="CategoryId" name="CategoryId" class="form-select shadow-none" required>
+                        <option selected>Kategori Seç...</option>
+                        @foreach (var category in Model)
+                        {
+                            <option value="@category.Id">@category.CategoryName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label for="Content" class="form-label">Ürün İçeriği</label>
+                    <textarea name="Content" class="form-control shadow-none" id="Content" rows="3" required></textarea>
+                </div>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary col-12 col-md-6">Ekle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
