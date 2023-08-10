@@ -33,7 +33,7 @@
                         <button class="btn text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-fill"></i>
                             <span style="font-size:14px;">
-                                @User.Identity.Name
+                                @User?.Identity?.Name
                             </span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" style="background-color:#1a041f;">
@@ -56,13 +56,13 @@
         <div class="offcanvas-body">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/Restaurant/Index">
                         <i class="bi bi-speedometer2 mx-2 link-icon"></i>
                         <span class="link-name">Ana Sayfa</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/Restaurant/Categories">
                         <i class="bi bi-tag mx-2 link-icon"></i>
                         <span class="link-name">Kategoriler</span>
                     </a>

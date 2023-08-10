@@ -1,0 +1,195 @@
+﻿@{
+    ViewData["Title"] = "Kategoriler";
+}
+
+@model List<YemekSiparisSistemi.Models.Category>
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Restaurant/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item active">Kategoriler</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row mb-3 d-flex align-items-center">
+        <div class="col-12 col-sm-6 mb-3 mb-sm-0">
+            <input type="text" id="CategoryName" name="CategoryName" class="form-control form-control-sm shadow-none" placeholder="Kategori Adı" aria-label="Category Name">
+        </div>
+        <div class="col-12 col-sm-6">
+            <button type="submit" id="btnAddCategory" class="btn btn-sm btn-outline-primary col-12 col-md-4">Ekle</button>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 table-responsive">
+            <table id="category-table" class="table align-middle caption-top text-center">
+                <caption>Kategoriler Listesi</caption>
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Kategori Adı</th>
+                        <th>Ürün Sayısı</th>
+                        <th>Ürünleri Gör</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="5"> Kayıtlı kategori bulunmamaktadır!</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        int index = 1;
+
+                        @foreach (var category in Model)
+                        {
+                            <tr id=@category.Id>
+                                <td>@index</td>
+                                <td>@category.CategoryName</td>
+                                <td>@category.Products.Count</td>
+                                <td><a href="#" class="btn btn-sm btn-success">Ürünler</a></td>
+                                <td><a id="btnSil" onclick="OpenDeleteModal(@category.Id,'@category.CategoryName')" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Sil</a></td>
+                            </tr>
+                            index++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--toast start-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Yemek Sipariş Sistemi</strong>
+            <small>Az Önce...</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toast-message">
+        </div>
+    </div>
+</div>
+<!--toast end-->
+<!--Delete Modal-->
+<div class="modal" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kategori Sil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteModalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">İptal</button>
+                <button type="button" id="deleteCategory" class="btn btn-primary btn-sm">Evet</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Finish Delete Modal-->
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+
+        function OpenDeleteModal(id, name) {
+            $("#deleteModalMessage").text(name + " isimli kategori silinsin mi?");
+            $("#deleteCategory").data("data-id", id);
+        }
+  
+        $(document).ready(function(){
+            $("#btnAddCategory").click(function(){
+                let Category = new Object();
+                Category.CategoryName = $("#CategoryName").val();
+                if(Category.CategoryName != null){
+                    $.ajax({
+                        method:"post",
+                        url:"/Restaurant/Category/Create",
+                        data:Category,
+                        success: function (response) {
+                            if (response != null) {
+                                AddCategoryToTable(response);
+                            }
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                }
+            });
+
+
+            $("#deleteCategory").click(function(){
+                let categoryId = $("#deleteCategory").data("data-id");
+                if(categoryId != null){
+                    console.log(categoryId);
+                    $.ajax({
+                        method:"post",
+                        url:"/Restaurant/Category/Delete/" + categoryId,
+                        success: function (categoryName) {
+                            if (categoryName != null) {
+                                $("tr#" + categoryId).remove();
+                                $("#deleteModal").modal("toggle");
+                                TriggerToast(categoryName, "silindi");
+                            }
+                        },
+                    });
+                } 
+                
+            });
+        });
+
+        function AddCategoryToTable(category) {
+            var table = document.getElementById("category-table");
+            var rowCount = table.rows.length;
+            var row = table.insertRow(-1);
+            row.id = category.id;
+            var c1 = row.insertCell(0);
+            var c2 = row.insertCell(1);
+            var c3 = row.insertCell(2);
+            var c4 = row.insertCell(3);
+            var c5 = row.insertCell(4);
+            c1.innerHTML = rowCount;
+            c2.innerHTML = category.categoryName;
+            c3.innerHTML = category.products.length;
+            let btnSil = document.createElement("a");
+            let btnProducts = document.createElement("a");
+            btnSil.id = "btnSil";
+            btnSil.setAttribute("data-bs-toggle", "modal");
+            btnSil.setAttribute("data-bs-target", "#deleteModal");
+            btnSil.innerText = "Sil";
+            btnSil.classList.add("btn", "btn-sm" ,"btn-danger");
+            btnSil.onclick = OpenDeleteModal(category.id, category.categoryName);
+            c5.appendChild(btnSil);
+
+            btnProducts.innerText = "Ürünler";
+            btnProducts.classList.add("btn","btn-sm","btn-success");
+            c4.appendChild(btnProducts);
+
+            $("#CategoryName").val("");
+
+            TriggerToast(category.categoryName, "eklendi");
+        }
+
+        function TriggerToast(message, status) {
+            const toastRoleAdded = document.getElementById('toast')
+            const messageBody = document.getElementById("toast-message");
+            messageBody.innerText = message + " isimli kategori, başarılı bir şekilde " + status;
+            const instance = bootstrap.Toast.getOrCreateInstance(toastRoleAdded)
+            instance.show();
+        }
+
+    </script>
+}

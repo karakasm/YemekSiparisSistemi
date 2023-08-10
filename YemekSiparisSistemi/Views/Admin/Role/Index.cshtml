@@ -3,7 +3,7 @@
 }
 @model List<YemekSiparisSistemi.Models.Role>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row mb-3">
         <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" aria-current="page">
@@ -13,12 +13,12 @@
             </ol>
         </nav>
     </div>
-    <div class="row mb-3">
+    <div class="row mb-3 d-flex align-items-center">
         <div class="col-12 col-sm-6 mb-3 mb-sm-0">
-            <input type="text" id="RoleName" name="RoleName" class="form-control shadow-none" placeholder="Rol Adı" aria-label="Role Name">
+            <input type="text" id="RoleName" name="RoleName" class="form-control form-control-sm shadow-none" placeholder="Rol Adı" aria-label="Role Name">
         </div>
         <div class="col-12 col-sm-6">
-            <button type="submit" id="btnAddRole" class="btn btn-sm btn-outline-primary">Ekle</button>
+            <button type="submit" id="btnAddRole" class="btn btn-sm btn-outline-primary col-12 col-md-4">Ekle</button>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -43,7 +43,7 @@
                             <td>@index</td>
                             <td>@role.RoleName</td>
                             <td>@role.Users.Count</td>
-                            <td><button id="btnSil" onclick="OpenDeleteModal(@role.Id,'@role.RoleName')" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Sil</button></td>
+                            <td><a id="btnSil" onclick="OpenDeleteModal(@role.Id,'@role.RoleName')" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Sil</a></td>
                         </tr>
                         index++;
                     }
@@ -158,7 +158,7 @@
             btnSil.setAttribute("data-bs-toggle","modal");
             btnSil.setAttribute("data-bs-target", "#deleteModal");
             btnSil.innerText = "Sil";
-            btnSil.classList.add("btn", "btn-danger");
+            btnSil.classList.add("btn", "btn-sm" ,"btn-danger");
             btnSil.onclick = OpenDeleteModal(role.id,role.roleName);
             c4.appendChild(btnSil);
 

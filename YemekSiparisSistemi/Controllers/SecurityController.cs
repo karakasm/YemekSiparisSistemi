@@ -32,7 +32,7 @@ namespace YemekSiparisSistemi.Controllers
             {
                 var claims = new List<Claim>
                 {
-
+                    new Claim(ClaimTypes.NameIdentifier,Convert.ToString(user.Id)),
                     new Claim(ClaimTypes.Name, user.Name.ToUpper() + " " + user.Surname.ToUpper()),
                     new Claim(ClaimTypes.Email,user.Email),
                     new Claim(ClaimTypes.Role, user.Role?.RoleName.ToLower()),
@@ -62,6 +62,7 @@ namespace YemekSiparisSistemi.Controllers
                 {
                     var claims = new List<Claim>
                     {
+                        new Claim(ClaimTypes.NameIdentifier,Convert.ToString(company.Id)),
                         new Claim(ClaimTypes.Email, company.Email),
                         new Claim(ClaimTypes.Name, company.CompanyName),
                         new Claim(ClaimTypes.Role, company.Role?.RoleName.ToLower()),
