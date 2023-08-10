@@ -59,37 +59,37 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="row g-3" method="#" action="#">
+                <form class="row g-3" method="post" action="/Security/SignUp">
                     <div class="col-12">
-                        <input type="text" class="form-control shadow-none mb-1" id="Name" placeholder="Name...">
+                        <input type="text" class="form-control shadow-none mb-1" id="Name" name="Name" placeholder="Name...">
                         <span class="nameErrorMessage text-danger" style="display:none;"></span>
                         <span class="nameSuccessMessage text-success" style="display:none;"></span>
                     </div>
                     <div class="col-12">
-                        <input type="text" class="form-control shadow-none mb-1" id="Surname" placeholder="Surname...">
+                        <input type="text" class="form-control shadow-none mb-1" id="Surname" name="Surname" placeholder="Surname...">
                         <span class="surnameErrorMessage text-danger" style="display:none;"></span>
                         <span class="surnameSuccessMessage text-success" style="display:none;"></span>
                     </div>
                     <div class="col-12">
-                        <input type="email" class="form-control shadow-none mb-1" id="Email" placeholder="Email...">
+                        <input type="email" class="form-control shadow-none mb-1" id="Email" name="Email" placeholder="Email...">
                         <span class="emailErrorMessage text-danger" style="display:none;"></span>
                         <span class="emailSuccessMessage text-success" style="display:none;"></span>
                     </div>
                     <div class="col-12">
-                        <input type="tel" class="form-control shadow-none mb-1" id="Phone" placeholder="Telefon...">
+                        <input type="tel" class="form-control shadow-none mb-1" id="Phone" name="Phone" placeholder="Telefon...">
                         <span class="phoneErrorMessage text-danger" style="display:none;"></span>
                         <span class="phoneSuccessMessage text-success" style="display:none;"></span>
                     </div>
                     <div class="col-12">
-                        <input type="password" class="form-control shadow-none" id="Password" placeholder="Şifre..." />
+                        <input type="password" class="form-control shadow-none" id="Password" name="Password" placeholder="Şifre..." />
                         <span class="passwordErrorMessage text-danger" style="display:none;"></span>
                         <span class="passwordSuccessMessage text-success" style="display:none;"></span>
                     </div>
+                    <div class="col-12 d-flex flex-row justify-content-end align-items-center">
+                        <button type="button" class="btn btn-sm btn-outline-primary mx-3" data-bs-toggle="modal" data-bs-target="#loginModal">Girişe Dön</button>
+                        <input type="submit" class="btn btn-sm btn-outline-success" value="Üye Ol"/> 
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer d-flex flex-row justify-content-end align-items-center">
-                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Girişe Geri Dön</button>
-                <button type="button" class="btn btn-sm btn-outline-success">Üye Ol</button>
             </div>
         </div>
     </div>

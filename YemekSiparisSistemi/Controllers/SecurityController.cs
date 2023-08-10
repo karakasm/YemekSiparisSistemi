@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
 using System.Text.Json;
 using YemekSiparisSistemi.Models;
@@ -21,7 +22,7 @@ namespace YemekSiparisSistemi.Controllers
         }
 
 
-        
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login([FromForm] string email, [FromForm] string password)
@@ -87,6 +88,38 @@ namespace YemekSiparisSistemi.Controllers
 
             return RedirectToAction("Index", "Home");
 
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> SignUp(User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            user.RoleId = (await _context.Roles.FirstOrDefaultAsync(role => role.RoleName.ToLower() == Role.IS_CUSTOMER)).Id;
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            var claims = new List<Claim>
+                {
+
+                    new Claim(ClaimTypes.Name, user.Name.ToUpper() + " " + user.Surname.ToUpper()),
+                    new Claim(ClaimTypes.Email,user.Email),
+                    new Claim(ClaimTypes.Role, user.Role?.RoleName.ToLower()),
+                };
+
+            var claimsIdentity = new ClaimsIdentity(claims,
+                CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));
+
+            return RedirectToAction("CustomerIndex", "Home");
         }
     }
 }
