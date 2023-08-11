@@ -90,5 +90,18 @@ namespace YemekSiparisSistemi.Controllers.Restaurant
 
             return Json(null);
         }
+
+        [HttpGet]
+        [Route("Category/{categoryId}/Products")]
+
+        public async Task<IActionResult> GettAllProductsByCategoryId(int? categoryId)
+        {
+            if(categoryId == null)
+            {
+                return BadRequest();
+            }
+            ViewData["Category"] = await _context.Categories.FindAsync(categoryId);
+            return View("~/Views/Restaurant/Category/Product/Index.cshtml", await _context.Products.Where(p => p.CategoryId == categoryId).Include(p => p.Category).ToListAsync());
+        }
     }
 }

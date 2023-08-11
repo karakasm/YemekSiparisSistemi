@@ -53,7 +53,7 @@
                                 <td>@index</td>
                                 <td>@category.CategoryName</td>
                                 <td>@category.Products.Count</td>
-                                <td><a href="#" class="btn btn-sm btn-success">Ürünler</a></td>
+                                <td><a href="/Restaurant/Category/@category.Id/Products" class="btn btn-sm btn-success">Ürünler</a></td>
                                 <td><a id="btnSil" onclick="OpenDeleteModal(@category.Id,'@category.CategoryName')" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Sil</a></td>
                             </tr>
                             index++;

@@ -1,0 +1,55 @@
+﻿@using YemekSiparisSistemi.Models
+@{
+    ViewData["Title"] = "Kategori Ürünleri";
+    Category? category = ViewData["Category"] as Category;
+}
+@model List<YemekSiparisSistemi.Models.Product>
+
+
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/Restaurant/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/Restaurant/Categories" style="color:indigo;">Kategoriler</a>
+                </li>
+                <li class="breadcrumb-item active">@category.CategoryName</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row mb-3 d-flex align-items-center">
+        @if (Model.Count == 0)
+        {
+            <h1>@category.CategoryName kategorisine ait ürün bulunmamaktadır.</h1>
+        }
+        else
+        {
+            foreach (var product in Model)
+            {
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="card mb-3" >
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img style="max-width:100px;" src="/Products/@category.CompanyId/@product.ProductImagePath" class="img-fluid rounded-start" alt="@product.ProductName">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@product.ProductName</h5>
+                                    <p class="card-text text-truncate">@product.Content</p>
+                                    <p class="card-text text-start">Fiyat: <strong>@product.UnitPrice TL</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+
