@@ -11,7 +11,7 @@ public partial class Menu
 
     public string? MenuName { get; set; }
 
-    public byte[]? Image { get; set; }
+    public string MenuImage { get; set; } = null!;
 
     public decimal TotalPrice { get; set; }
 

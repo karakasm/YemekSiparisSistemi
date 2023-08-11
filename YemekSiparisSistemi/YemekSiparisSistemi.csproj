@@ -25,6 +25,7 @@
     <Folder Include="Controllers\Customer\" />
     <Folder Include="Models\" />
     <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\Menus\11\" />
   </ItemGroup>
 
   <ItemGroup>

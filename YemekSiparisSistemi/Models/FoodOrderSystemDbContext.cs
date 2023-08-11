@@ -317,9 +317,6 @@ public partial class FoodOrderSystemDbContext : DbContext
             entity.Property(e => e.Detail)
                 .HasColumnType("text")
                 .HasColumnName("detail");
-            entity.Property(e => e.Image)
-                .HasColumnType("image")
-                .HasColumnName("image");
             entity.Property(e => e.MenuName)
                 .HasMaxLength(30)
                 .HasColumnName("menu_name");

@@ -1,0 +1,229 @@
+﻿@{
+    ViewData["Title"] = "Menü Ekle";
+    int currentCompanyId = Convert.ToInt32(ViewData["currentCompanyId"]);
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Restaurant/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/Restaurant/Menus" style="color:indigo;">Menüler</a>
+                </li>
+                <li class="breadcrumb-item active">Menü-Ekle</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row py-3 justify-content-center align-items-center">
+        <div class="row mb-3">
+            <div class="col-12">
+                <button id="btnAddProduct" onclick="GetAllProducts(@currentCompanyId)" class="btn btn-sm btn-outline-primary">Ürün Ekle</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                <form class="row g-3" method="post" action="/Restaurant/Menu/Create" enctype="multipart/form-data">
+                    <div class="col-md-6">
+                        <label for="MenuName" class="form-label">Menü Adı</label>
+                        <input type="text" name="MenuName" class="form-control shadow-none" id="MenuName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="MenuImage" class="form-label">Menü Resmi</label>
+                        <input type="file" name="MenuImage" class="form-control shadow-none" id="MenuImage" required>
+                    </div>
+                    @*<div class="col-md-3">
+                        <label for="ProductId" class="form-label">Ürün</label>
+                        <select id="ProductId" name="ProductId" class="form-select shadow-none" required>
+                            <option selected>Ürün Seç...</option>
+                            @foreach (var product in Model)
+                            {
+                                <option value="@product.Id">@product.ProductName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="Quantity" class="form-label">Ürün Adedi</label>
+                        <input type="number" min="1" step="any" name="Quantity" class="form-control shadow-none" id="Quantity" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="UnitPrice" class="form-label">Ürün Birim Fiyat</label>
+                        <input type="number" min="1" step="any" name="UnitPrice" class="form-control shadow-none" id="UnitPrice" required>
+                    </div>*@
+                    
+                    <div class="row g-3 input-wrap">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="TotalPrice" class="form-label">Toplam Fiyat</label>
+                        <input type="number" min="1"  step="any" name="TotalPrice" class="form-control shadow-none" id="TotalPrice" readonly required>
+                    </div>
+                    <div class="col-12">
+                        <label for="Detail" class="form-label">Menü Detay</label>
+                        <textarea name="Detail" class="form-control shadow-none" id="Detail" rows="3" required></textarea>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary col-12 col-md-6">Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        const divInputWrap = document.querySelector(".input-wrap");
+        let totalPrice = 0;
+        function GetAllProducts(currentCompanyId) {
+            $.ajax({
+                method: "get",
+                url: "/Restaurant/" + currentCompanyId + "/Products",
+                success: function (response) {
+                    if (response != null) {
+                        AddProduct(response)
+                    } else {
+                        alert("İstek başarısız.");
+                    }
+                },
+            });
+        }
+
+        function RemoveProduct(){
+            this.parentElement.parentElement.remove();
+            setTimeout(function(){
+                CalculateTotalPrice();
+            },1000)
+        }
+
+        function AddProduct(products) {
+
+            const divRow = document.createElement("div");
+            divRow.classList.add("row","g-3","align-items-center","justify-content-center");
+
+
+            //ProductId start
+            const divProductId = document.createElement("div");
+            divProductId.classList.add("col-md-3");
+
+            const lblProductId = document.createElement("label");
+            lblProductId.classList.add("form-label");
+            lblProductId.innerText = "Ürün";
+            lblProductId.for = "ProductId";
+
+            const slctProductId = document.createElement("select");
+            slctProductId.name = "ProductId";
+            slctProductId.classList.add("form-select", "shadow-none", "ProductId");
+            slctProductId.required = true;
+
+            const optProductId = document.createElement("option");
+            optProductId.selected = true;
+            optProductId.text = "Ürün Seç...";
+
+            divRow.appendChild(divProductId);
+            divProductId.appendChild(lblProductId);
+            divProductId.appendChild(slctProductId);
+            slctProductId.appendChild(optProductId);
+
+            for (let index in products) {
+                let product = products[index];
+                let option = document.createElement("option");
+                option.setAttribute('value', product.id);
+                option.text = product.productName;
+                slctProductId.appendChild(option);
+            }
+            //ProductId end
+
+            //Quantity start
+            const divQuantity = document.createElement("div");
+            divQuantity.classList.add("col-md-3");
+
+            const lblQuantity = document.createElement("label");
+            lblQuantity.classList.add("form-label");
+            lblQuantity.innerText = "Ürün Adedi";
+            lblQuantity.for = "Quantity";
+
+            const inpQuantity = document.createElement("input");
+            inpQuantity.type = "number";
+            inpQuantity.min = "1";
+            inpQuantity.step = "any";
+            inpQuantity.name = "Quantity[]";
+            inpQuantity.classList.add("form-control", "shadow-none", "Quantity");
+            inpQuantity.required = true;
+
+            divRow.appendChild(divQuantity);
+            divQuantity.appendChild(lblQuantity);
+            divQuantity.appendChild(inpQuantity);
+            //Quantity End
+
+
+            //UnitPrice Start
+            const divUnitPrice = document.createElement("div");
+            divUnitPrice.classList.add("col-md-3");
+
+            const lblUnitPrice = document.createElement("label");
+            lblUnitPrice.classList.add("form-label");
+            lblUnitPrice.innerText = "Ürün Birim Fiyat";
+            lblUnitPrice.for = "UnitPrice";
+
+
+            const inpUnitPrice = document.createElement("input");
+            inpUnitPrice.type = "number";
+            inpUnitPrice.min = "1";
+            inpUnitPrice.step = "any";
+            inpUnitPrice.name = "UnitPrice[]";
+            inpUnitPrice.classList.add("form-control", "shadow-none", "UnitPrice");
+            inpUnitPrice.required = true;
+
+            divRow.appendChild(divUnitPrice)
+            divUnitPrice.appendChild(lblUnitPrice);
+            divUnitPrice.appendChild(inpUnitPrice);
+            //UnitPrice end
+
+            //BtnDelete start
+            const divBtnDelete = document.createElement("div");
+            divBtnDelete.classList.add("col-md-3","d-flex","align-items-end");
+
+            const btnDelete = document.createElement("button");
+            btnDelete.classList.add("btn","btn-sm","btn-danger","mt-4");
+            btnDelete.innerText = "Ürün Sil";
+            btnDelete.addEventListener("click",RemoveProduct);
+
+            divBtnDelete.appendChild(btnDelete);
+            divRow.appendChild(divBtnDelete);
+            
+            //BtnDelete end
+            divInputWrap.appendChild(divRow);
+            setInterval(function(){
+                  CalculateTotalPrice();
+            },1000)
+        }
+
+
+        function CalculateTotalPrice(){
+            const quantities = document.querySelectorAll(".Quantity");
+                  const unitPrices = document.querySelectorAll(".UnitPrice");
+                  if( quantities.length > 0)
+                  {
+                      for(let index in quantities)
+                      {
+                          if(quantities[index].value != null && unitPrices[index].value != null)
+                          {
+                              totalPrice +=  quantities[index].value * unitPrices[index].value;
+                          }
+                      }
+                      $("#TotalPrice").val(totalPrice);
+                      console.log(totalPrice);
+                      totalPrice = 0;
+                  }
+                  else
+                  {
+                       $("#TotalPrice").val(totalPrice);
+                  }
+        }
+
+    </script>
+}

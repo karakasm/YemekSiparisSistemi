@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "Menü";
+}
+@model List<YemekSiparisSistemi.Models.Menu>
+<div class="container-fluid">
+    <div class="row">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Restaurant/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item active">Menüler</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row py-3 justify-content-center">
+        <div class="col-12 mb-3">
+            <div class="table-responsive">
+                <table class="table align-middle caption-top text-center">
+                    <caption>Ürünler Listesi</caption>
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Menü Adı</th>
+                            <th>Menü Resmi</th>
+                            <th>Toplam Fiyatı</th>
+                            <th>Detay</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="8"> Kayıtlı Menü bulunmamaktadır!</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            int i = 1;
+                            foreach (var menu in Model)
+                            {
+                                <tr id="@menu.Id">
+                                    <td>@i</td>
+                                    <td>@menu.MenuName</td>
+                                    <td><img src="~/Menus/@menu.CompanyId.ToString()/@menu.MenuImage" + width="45" height="45" alt="Menü Resmi" /></td>
+                                    <td>@menu.TotalPrice</td>
+                                    <td><a href="#" class="btn btn-sm btn-primary">Detay</a></td>
+                                    <td><a href="#" class="btn btn-sm btn-success">Düzenle</a></td>
+                                    <td><a onclick="OpenProductDeleteModal(@menu.Id,'@menu.MenuName')" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#productDeleteModal">Sil</a></td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 text-center">
+            <a href="/Restaurant/Menu/Create" type="button" class="btn btn-sm btn-outline-primary">Yeni Menü Ekle</a>
+        </div>
+    </div>
+</div>
+

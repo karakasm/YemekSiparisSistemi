@@ -124,5 +124,18 @@ namespace YemekSiparisSistemi.Controllers.Restaurant
                 return Json(null);
             }
         }
+
+        [HttpGet]
+        [Route("{id}/Products")]
+
+        public async Task<IActionResult> GetAllProductsByCompanyId(int? id)
+        {
+            if(id == null)
+            {
+                return BadRequest();
+            }
+
+            return Json(await _context.Products.Where(p => p.CompanyId == id).ToListAsync());
+        }
     }
 }
