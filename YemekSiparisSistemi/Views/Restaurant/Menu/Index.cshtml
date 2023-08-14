@@ -49,7 +49,7 @@
                                     <td>@menu.TotalPrice</td>
                                     <td><a href="#" class="btn btn-sm btn-primary">Detay</a></td>
                                     <td><a href="#" class="btn btn-sm btn-success">Düzenle</a></td>
-                                    <td><a onclick="OpenProductDeleteModal(@menu.Id,'@menu.MenuName')" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#productDeleteModal">Sil</a></td>
+                                    <td><a onclick="OpenMenuDeleteModal(@menu.Id,'@menu.MenuName')" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#menuDeleteModal">Sil</a></td>
                                 </tr>
                                 i++;
                             }
@@ -64,3 +64,78 @@
     </div>
 </div>
 
+<!--toast start-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Yemek Sipariş Sistemi</strong>
+            <small>Az Önce...</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toast-message">
+        </div>
+    </div>
+</div>
+<!--toast end-->
+<!--Delete Modal-->
+<div class="modal" id="menuDeleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Menü Sil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="menuDeleteModalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">İptal</button>
+                <button type="button" id="btnDeleteMenu" class="btn btn-primary btn-sm">Evet</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Finish Delete Modal-->
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        function OpenMenuDeleteModal(id, menuName) {
+            $("#menuDeleteModalMessage").text(menuName + " isimli ürün silinsin mi?");
+            $("#btnDeleteMenu").data("data-id", id);
+        }
+
+        $(document).ready(function () {
+            $("#btnDeleteMenu").click(function () {
+                let menuId = $("#btnDeleteMenu").data("data-id");
+                $.ajax({
+                    method: "post",
+                    url: "/restaurant/menu/delete/" + menuId,
+                    success: function (menuName) {
+                        if (menuName != null) {
+                            $("tr#" + menuId).remove();
+                            $("#menuDeleteModal").modal("toggle");
+                            TriggerToast(menuName, "silindi");
+                        } else {
+                            $("#menuDeleteModal").modal("toggle");
+                            alert("Menü Silme işlemi başarısız!!!");
+                        }
+                    }
+                });
+            });
+        });
+
+
+
+
+
+        function TriggerToast(message, status) {
+            const toast = document.getElementById('toast')
+            const messageBody = document.getElementById("toast-message");
+            messageBody.innerText = message + " isimli menü, başarılı bir şekilde " + status;
+            const instance = bootstrap.Toast.getOrCreateInstance(toast)
+            instance.show();
+        }
+
+    </script>
+}

@@ -100,5 +100,46 @@ namespace YemekSiparisSistemi.Controllers.Restaurant
             }
             return RedirectToAction("Index", "Menu");
         }
+
+
+        [HttpPost]
+        [Route("Menu/Delete/{id}")]
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if(id == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                Menu? menu = await _context.Menus.FindAsync(id);
+
+                if (menu == null)
+                {
+                    return BadRequest();
+                }
+
+                string path = Path.Combine(_appEnvironment.WebRootPath, "Menus\\" + menu.CompanyId.ToString());
+
+                string filePath = Path.Combine(path, menu.MenuImage);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    // If file found, delete it
+                    System.IO.File.Delete(filePath);
+                }
+
+                _context.Menus.Remove(menu);
+                await _context.SaveChangesAsync();
+                return Json(menu.MenuName);
+
+            }
+            catch(Exception /*ex*/)
+            {
+                return Json(null);
+            }
+        }
     }
 }
