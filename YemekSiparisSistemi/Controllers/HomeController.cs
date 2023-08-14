@@ -1,11 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using YemekSiparisSistemi.Models;
 
 namespace YemekSiparisSistemi.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly FoodOrderSystemDbContext _context;
+
+
+        public HomeController(FoodOrderSystemDbContext foodOrderSystemDbContext)
+        {
+            _context = foodOrderSystemDbContext;
+        }
+
         [AllowAnonymous]
         [Route("/")]
         [Route("Index")]
@@ -38,9 +49,9 @@ namespace YemekSiparisSistemi.Controllers
         [Route("Customer")]
         [Route("Customer/Index")]
         [HttpGet]
-        public IActionResult CustomerIndex()
+        public async Task<IActionResult> CustomerIndex()
         {
-            return View("~/Views/Customer/Index.cshtml");
+            return View("~/Views/Customer/Index.cshtml", await _context.Companies.Include(c => c.Address).ThenInclude(a => a.Province).ThenInclude(a => a.Districts).ToListAsync());
         }
 
 

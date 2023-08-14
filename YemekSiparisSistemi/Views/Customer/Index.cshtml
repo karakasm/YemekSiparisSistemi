@@ -1,8 +1,59 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
 }
-
-<div class="container">
-    <h1>Customer Index</h1>
+@model List<YemekSiparisSistemi.Models.Company>
+<div class="container-fluid">
+    <div class="row mb-1">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">Ana Sayfa</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row mb-3 d-flex flex-row align-items-center justify-content-between">
+        <div class="col-12 col-md-6">
+            <h6>Sipariş Verebileceğiniz Restoranlar</h6>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="input-group input-group-sm">
+                <input type="search" class="form-control shadow-none" placeholder="Bir restoran ara...">
+                <button class="btn btn-outline-primary" type="button"><i class="bi bi-search"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">
+            <div class="row">
+                @foreach (var company in Model)
+                {
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="card shadow border-0">
+                            <div class="row g-1">
+                                <div class="col-md-4">
+                                    <img style="max-width:100%; height:auto; object-fit:cover;" src="/Logos/@company.LogoPath" class="img-fluid rounded-start" alt="@company.CompanyName">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-truncate" style="font-size:16px;">@company?.Address?.Province?.ProvinceName</h5>
+                                        <p class="card-text text-truncate" style="font-size:14px;"> @company?.Address?.District?.DistrictName</p>
+                                        <p class="card-text text-truncate" style="font-size:12px;"><small class="text-body-secondary">@company?.Address?.Neighbourhood</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row d-flex align-items-center justify-content-center">
+                                    <div class="col-6">
+                                        <a href="#" class="btn btn-outline-danger btn-sm" style="font-size:10px;">
+                                            <i class="uil uil-shopping-cart-alt"></i>
+                                            Alışverişe Başla
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
