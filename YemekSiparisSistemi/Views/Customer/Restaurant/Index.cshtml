@@ -1,0 +1,55 @@
+﻿@using YemekSiparisSistemi.Models
+@{
+    ViewData["Title"] = "Restoranlar";
+    Company? company = ViewData["Company"] as Company;
+}
+@model List<YemekSiparisSistemi.Models.Category>
+<div class="container-fluid">
+    <div class="row mb-3">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Customer/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item active">@company?.CompanyName</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+            <div class="list-group py-3 rounded-pill">
+                <button type="button" onclick="GetAllMenus(@company.Id)" class="list-group-item list-group-item-action text-truncate text-center" style="font-size:14px;">Menüler</button>
+                @foreach(Category category in Model)
+                {
+                    <button type="button" onclick="GetAllProducts(@category.Id)" class="list-group-item list-group-item-action text-truncate text-center" style="font-size:14px;">
+                        @category.CategoryName
+                    </button>
+                }
+            </div>
+        </div>
+        <div class="col-12 col-md-9">
+            <div class="row py-3" id="cardDiv">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        function GetAllProducts(categoryId){
+            $(document).ready(function(){
+                path = "/Customer/Category/" + categoryId + "/Products";
+                $("#cardDiv").load(path);
+            });
+        }
+
+        function GetAllMenus(companyId){
+            $(document).ready(function(){
+                path = "/Customer/Restaurants/" + companyId + "/Menus";
+                $("#cardDiv").load(path);
+            });
+        }
+    </script>
+}
