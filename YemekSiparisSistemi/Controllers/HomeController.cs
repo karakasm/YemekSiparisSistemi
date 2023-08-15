@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using System.Security.Claims;
 using YemekSiparisSistemi.Models;
 
@@ -21,10 +22,10 @@ namespace YemekSiparisSistemi.Controllers
         [Route("/")]
         [Route("Index")]
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-  
-            return View("~/Views/Index.cshtml");
+            ViewData["Provinces"] = _context.Provinces.ToList();
+            return View("~/Views/Index.cshtml",await _context.Companies.ToListAsync<Company>());
         }
 
         [Authorize(Roles = Role.IS_ADMIN)]
@@ -54,6 +55,12 @@ namespace YemekSiparisSistemi.Controllers
             return View("~/Views/Customer/Index.cshtml", await _context.Companies.Include(c => c.Address).ThenInclude(a => a.Province).ThenInclude(a => a.Districts).ToListAsync());
         }
 
-
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Province/{id}/Districts")]
+        public JsonResult GetAllDistrictByProvinceId(int id)
+        {
+            return Json(_context.Districts.Where(d => d.ProvinceId == id).ToJson());
+        }
     }
 }

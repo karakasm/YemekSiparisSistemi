@@ -1,20 +1,194 @@
-﻿
+﻿@using YemekSiparisSistemi.Models
+
+@{
+    List<Province>? provinces = ViewData["Provinces"] as List<Province>;
+}
+@model List<Company>
+
+@section styles{
+    <style>
+        .list-group-item {
+            background-color: rgba(75,0,130,0.8);
+            border: none;
+            font-size: 14px;
+            color: rgba(240, 240, 240,0.5);
+        }
+
+            .list-group-item:hover {
+                background-color: rgba(75,0,130,0.8);
+                color: rgba(240, 240, 240,1);
+            }
+
+            .list-group-item:active,
+            .list-group-item:focus {
+                color: rgba(240, 240, 240,1);
+                background-color: rgba(75,0,130,1);
+            }
+    </style>
+
+}
+
 <div class="container-fluid">
-   
-    <p>@ViewBag.LoginError</p>
-    <section id="companies" class="row mb-3 border border-1">
+    <section id="companies" class="row mb-3 border-bottom">
         <div class="col-12">
-            <h1>Bizimle Çalışan firmalar</h1>
+            <div class="row mb-2 justify-content-between align-items-center p-1">
+                <div class="col-12 col-md-6 mb-2 col-md-mb-0">
+                    <span class="text-truncate" style="font-size:18px; color:#1a041f">Bizimle Çalışan Firmalar</span>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="input-group input-group-sm">
+                        <input type="search" class="form-control shadow-none" placeholder="Bir firma ara...">
+                        <button class="btn btn-outline-primary" type="button"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-1">
+                @foreach (var company in Model)
+                {
+                    <div class="col-12 col-sm-4 mb-3 col-lg-2">
+                        <div class="card border-0 shadow">
+
+                            <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                                <img src="/Logos/@company?.LogoPath" height="90" style="width:50%; object-fit:contain;" alt="Logo" />
+                            </div>
+                            <div class="card-footer text-center text-truncate" style="background-color:indigo;">
+                                <a href="#" class="btn btn-outline-warning btn-sm  text-center text-truncate" style="font-size:12px;">
+                                    <i class="uil uil-shopping-cart-alt"></i>
+                                    Alışverişe Başla
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </section>
-    <section id="about" class="row mb-3 border border-1">
+    <section id="info" class="row mb-3 border-bottom">
         <div class="col-12">
-            <h1>Hakkımızda</h1>
+            <div class="row">
+                <div class="col-12">
+                    <div class="list-group list-group-horizontal-md py-3 rounded-pill">
+                        <a role="button" href="#aboutCollapse" class="list-group-item list-group-item-action text-truncate text-center" data-bs-toggle="collapse">
+                            Hakkımızda
+                        </a>
+                        <a role="button" href="#founderCollapse" class="list-group-item list-group-item-action text-truncate text-center" data-bs-toggle="collapse">
+                            Kurucularımız
+                        </a>
+                        <a role="button" href="#contactCollapse" class="list-group-item list-group-item-action text-truncate text-center" data-bs-toggle="collapse">
+                            İletişim Bilgileri
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row" id="collapsibleArea">
+                        <div class="col-12">
+                            <div class="collapse show" id="aboutCollapse" data-bs-parent="#collapsibleArea">
+                                <div class="card p-2 border-0">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-3" style="font-size:18px; color:indigo;">Hakkımızda</h5>
+                                        <p class="card-text text-wrap" style="text-align:justify">
+                                            Vivamus commodo elementum luctus. Pellentesque pellentesque nibh ut porta rutrum. Aenean in lorem venenatis sem eleifend convallis. Nulla tristique neque non mauris dapibus laoreet. Donec nec congue libero. Nunc tincidunt, nibh in cursus posuere, diam enim rutrum nulla, id ultrices sem nulla imperdiet mauris. Nulla accumsan luctus purus. Pellentesque feugiat aliquam erat, a sagittis felis congue scelerisque. Vivamus quis nunc vitae mi scelerisque maximus sed ut sem. Nam scelerisque, urna id feugiat porttitor, sem mi laoreet justo, nec malesuada massa magna lacinia odio. Nulla et elit lorem. Quisque magna risus, tempus vestibulum nisi nec, consectetur commodo nibh. Mauris pretium, augue ut vestibulum semper, mauris est fringilla mauris, id cursus velit augue sit amet lorem. Vivamus nec justo at leo rutrum laoreet. In ac bibendum metus. Cras sed ante ac erat sodales viverra non quis lectus.
+                                        </p>
+                                        <p class="card-text text-wrap" style="text-align:justify">
+                                            Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="collapse" id="founderCollapse" data-bs-parent="#collapsibleArea">
+                                <div class="card p-2 border-0">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-3" style="font-size:18px; color:indigo;">Kurucularımız</h5>
+                                        <h6 class="card-subtitle mb-3" style="font-size:16px;color:rgba(75,0,130,0.7)">Turab Karakaş</h6>
+                                        <p class="card-text text-wrap" style="text-align:justify;">
+                                            Vivamus commodo elementum luctus. Pellentesque pellentesque nibh ut porta rutrum. Aenean in lorem venenatis sem eleifend convallis. Nulla tristique neque non mauris dapibus laoreet. Donec nec congue libero. Nunc tincidunt, nibh in cursus posuere, diam enim rutrum nulla, id ultrices sem nulla imperdiet mauris. Nulla accumsan luctus purus. Pellentesque feugiat aliquam erat, a sagittis felis congue scelerisque. Vivamus quis nunc vitae mi scelerisque maximus sed ut sem. Nam scelerisque, urna id feugiat porttitor, sem mi laoreet justo, nec malesuada massa magna lacinia odio. Nulla et elit lorem. Quisque magna risus, tempus vestibulum nisi nec, consectetur commodo nibh. Mauris pretium, augue ut vestibulum semper, mauris est fringilla mauris, id cursus velit augue sit amet lorem. Vivamus nec justo at leo rutrum laoreet. In ac bibendum metus. Cras sed ante ac erat sodales viverra non quis lectus.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="collapse" id="contactCollapse" data-bs-parent="#collapsibleArea">
+                                <div class="card p-2 border-0">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-3" style="font-size:18px; color:indigo;">İletişim Bilgileri</h5>
+                                        <p class="card-text text-wrap d-flex align-items-center" style="text-align:justify;">
+                                            <i class="bi bi-telephone me-2" style="font-size:14px;color:indigo;"></i>
+                                            <span style="font-size:12px;"><strong>0123 123 23 43</strong></span>
+                                        </p>
+                                        <p class="card-text text-wrap d-flex align-items-center" style="text-align:justify;">
+                                            <i class="bi bi-envelope me-2" style="font-size:14px;color:indigo;"></i>
+                                            <span style="font-size:12px;"><strong>yemeksiparis@gmail.com</strong></span>
+                                        </p>
+                                        <p class="card-text text-wrap d-flex align-items-center" style="text-align:justify;">
+                                            <i class="bi bi-geo-alt me-2" style="font-size:14px;color:indigo;"></i>
+                                            <span style="font-size:12px;"><strong>Turgut Özal Bul. Tanburi Ali Efendi Sk. No:13 YemekSiparişOfis, Bahçeşehir, Başakşehir/İstanbul</strong></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-    <section id="contact" class="row mb-3 border border-1">
+    <section id="contact" class="row mb-5">
         <div class="col-12">
-            <h1>İletişim Kurmak İçin Form</h1>
+            <div class="row justify-content-center align-items-center">
+                <h1 class="text-center mb-3" style="font-size:18px;color:#1a041f">Bize Katıl</h1>
+                <div class="col-12 col-md-8">
+                    <form class="row g-3" method="#" action="#">
+                        <div class="col-12 col-md-6">
+                            <label for="CompanyName" class="form-label">Şirket Adı</label>
+                            <input type="text" class="form-control shadow-none mb-1" id="CompanyName" name="CompanyName" required>
+                            <span class="CompanyNameErrorMessage text-danger" style="display:none;"></span>
+                            <span class="CompanyNameSuccessMessage text-success" style="display:none;"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="province" class="form-label">İl</label>
+                            <select id="province" onchange="GetDistricts()" name="ProvinceId" class="form-select shadow-none" required>
+                                <option selected>İl Seç...</option>
+                                @if(provinces != null)
+                                {
+                                    @foreach (Province item in provinces)
+                                    {
+                                        <option value="@item.Id">@item.ProvinceName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="district" class="form-label">İlçe</label>
+                            <select id="district" name="DistrictId" class="form-select shadow-none" required>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="email" class="form-label">E-Posta</label>
+                            <input type="email" name="Email" class="form-control shadow-none" id="email" required>
+                            <span class="emailErrorMessage text-danger" style="display:none;"></span>
+                            <span class="emailSuccessMessage text-success" style="display:none;"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="phone" class="form-label">Telefon Numarası</label>
+                            <input type="tel" name="Phone" class="form-control shadow-none" id="phone" required>
+                            <span class="phoneErrorMessage text-danger" style="display:none;"></span>
+                            <span class="phoneSuccessMessage text-success" style="display:none;"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="postalCode" class="form-label">Posta Kodu</label>
+                            <input type="text" name="PostalCode" class="form-control shadow-none" id="postalCode" required>
+                            <span class="postalCodeErrorMessage text-danger" style="display:none;"></span>
+                            <span class="postalCodeSuccessMessage text-success" style="display:none;"></span>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <input type="submit" class="btn w-50 btn-sm btn-outline-primary" value="Başvur" />
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 </div>
@@ -87,7 +261,7 @@
                     </div>
                     <div class="col-12 d-flex flex-row justify-content-end align-items-center">
                         <button type="button" class="btn btn-sm btn-outline-primary mx-3" data-bs-toggle="modal" data-bs-target="#loginModal">Girişe Dön</button>
-                        <input type="submit" class="btn btn-sm btn-outline-success" value="Üye Ol"/> 
+                        <input type="submit" class="btn btn-sm btn-outline-success" value="Üye Ol" />
                     </div>
                 </form>
             </div>
@@ -98,7 +272,36 @@
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>
+        function GetDistricts() {
+            let ddlProvince = document.getElementById("province");
+            let id = ddlProvince.value;
+            $.ajax({
+                method: "get",
+                url: "/Province/" + id + "/Districts",
+                success: function (response) {
+                    if (response) {
+                        AddDistrictsToSelectList(JSON.parse(response));
+                    } else {
+                        console.log("Bir hata gerçekleşti.");
+                    }
+                }
+            });
+        }
 
+        function AddDistrictsToSelectList(districts) {
+            $("#district").empty();
+            const districtDropdown = document.getElementById("district");
+            for (let index in districts) {
+                let district = districts[index];
+                let option = document.createElement("option");
+                option.setAttribute('value', district.Id);
+                let optionText = document.createTextNode(district.DistrictName);
+                option.appendChild(optionText);
+
+                districtDropdown.appendChild(option);
+            }
+
+        }
     </script>
 
 }
