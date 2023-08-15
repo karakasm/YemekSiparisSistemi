@@ -52,7 +52,7 @@
                                 <img src="/Logos/@company?.LogoPath" height="90" style="width:50%; object-fit:contain;" alt="Logo" />
                             </div>
                             <div class="card-footer text-center text-truncate" style="background-color:indigo;">
-                                <a href="#" class="btn btn-outline-warning btn-sm  text-center text-truncate" style="font-size:12px;">
+                                <a href="#infoModal" class="btn btn-outline-warning btn-sm  text-center text-truncate" style="font-size:12px;" data-bs-toggle="modal">
                                     <i class="uil uil-shopping-cart-alt"></i>
                                     Alışverişe Başla
                                 </a>
@@ -269,6 +269,23 @@
     </div>
 </div>
 <!--Sign Up Modal end-->
+
+
+<!--Info Modal start-->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bilgilendirme</h5>
+                <button type="button" class="btn-close" style="color:#fff;" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="card-text">Alişverişe başlayabilmek için, giriş yapmalısın ya da üye olmalısın!!!</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Info Modal end-->
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>
