@@ -34,6 +34,11 @@ namespace YemekSiparisSistemi.Controllers
         [HttpGet]
         public IActionResult AdminIndex()
         {
+            ViewData["rolCount"] = _context.Roles.Count<Role>();
+            ViewData["userCount"] = _context.Users.Count<User>();
+            ViewData["restaurantCount"] = _context.Companies.Count<Company>();
+            ViewData["orderCount"] = _context.Orders.Count<Order>();
+            ViewData["deliveryCount"] = _context.Deliveries.Count<Delivery>();
             return View("~/Views/Admin/Index.cshtml");
         }
 

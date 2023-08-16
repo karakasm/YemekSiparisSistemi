@@ -1,7 +1,63 @@
-﻿@{
+﻿@using YemekSiparisSistemi.Models
+@{
     ViewData["Title"] = "Admin-Ana Sayfa";
 }
 
-<div class="container">
-    <h1>Admin Index</h1>
+<div class="container-fluid">
+    <div class="row">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">Ana Sayfa</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row py-3">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card my-3 mb-lg-0 border-0 shadow">
+                <div class="card-header text-white d-flex flex-row justify-content-between align-items-center text-truncate" style="background-color:indigo;">
+                    <a href="/Admin/Roles" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><span class="text-truncate" style="font-size:18px;">Roller</span></a>
+                    <i class="bi bi-person-badge" style="font-size:32px;"></i>
+                    <span class="text-truncate" style="font-size:18px;"><strong>@ViewData["rolCount"]</strong></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card my-3 mb-lg-0 border-0 shadow">
+                <div class="card-header text-white d-flex flex-row justify-content-between align-items-center text-truncate bg-warning">
+                    <a href="/Admin/Users" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><span class="text-truncate" style="font-size:18px;">Kullanıcılar</span></a>
+                    <i class="bi bi-people" style="font-size:32px;"></i>
+                    <span class="text-truncate" style="font-size:18px;"><strong>@ViewData["userCount"]</strong></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card my-3 mb-lg-0 border-0 shadow">
+                <div class="card-header text-white d-flex flex-row justify-content-between align-items-center text-truncate bg-danger">
+                    <a href="/Admin/Restaurants" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                        <span class="text-truncate" style="font-size:18px;">Restoranlar</span>
+                        </a>
+                    <i class="uil uil-restaurant" style="font-size:32px;"></i>
+                    <span class="text-truncate" style="font-size:18px;"><strong>@ViewData["restaurantCount"]</strong></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card my-3 mb-lg-0 border-0 shadow">
+                <div class="card-header text-white d-flex flex-row justify-content-between align-items-center text-truncate bg-success">
+                    <a href="#" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><span class="text-truncate" style="font-size:18px;">Siparişler</span></a>
+                    <i class="bi bi-person-lines-fill" style="font-size:32px;"></i>
+                    <span class="text-truncate" style="font-size:18px;"><strong>@ViewData["orderCount"]</strong></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card my-3 mb-lg-0 border-0 shadow">
+                <div class="card-header text-white d-flex flex-row justify-content-between align-items-center text-truncate bg-primary">
+                    <a href="#" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><span class="text-truncate" style="font-size:18px;">Teslimatlar</span></a>
+                    <i class="bi bi-truck" style="font-size:32px;"></i>
+                    <span class="text-truncate" style="font-size:18px;"><strong>@ViewData["deliveryCount"]</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
