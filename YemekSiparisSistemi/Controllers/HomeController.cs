@@ -11,11 +11,15 @@ namespace YemekSiparisSistemi.Controllers
     {
 
         private readonly FoodOrderSystemDbContext _context;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly int currentUserId;
 
-
-        public HomeController(FoodOrderSystemDbContext foodOrderSystemDbContext)
+        public HomeController(FoodOrderSystemDbContext foodOrderSystemDbContext,IHttpContextAccessor httpContextAccessor)
         {
             _context = foodOrderSystemDbContext;
+            _contextAccessor = httpContextAccessor;
+            currentUserId = Convert.ToInt32(_contextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
         }
 
         [AllowAnonymous]
@@ -48,6 +52,14 @@ namespace YemekSiparisSistemi.Controllers
         [HttpGet]
         public IActionResult RestaurantIndex()
         {
+
+            ViewData["categoryCount"] = _context.Categories.Where(c => c.CompanyId == currentUserId).Count<Category>();
+            ViewData["productCount"] = _context.Products.Where(p => p.CompanyId == currentUserId).Count<Product>();
+            ViewData["menuCount"] = _context.Menus.Where(m => m.CompanyId == currentUserId).Count<Menu>();
+            ViewData["orderCount"] = _context.Orders.Where(o => o.CompanyId == currentUserId).Count<Order>();
+            ViewData["deliveryCount"] = _context.Deliveries.Where(d => d.CompanyId == currentUserId).Count<Delivery>();
+            ViewData["courierCount"] = _context.Couriers.Where(c => c.CompanyId == currentUserId).Count<Courier>();
+
             return View("~/Views/Restaurant/Index.cshtml");
         }
 
@@ -57,7 +69,7 @@ namespace YemekSiparisSistemi.Controllers
         [HttpGet]
         public async Task<IActionResult> CustomerIndex()
         {
-            return View("~/Views/Customer/Index.cshtml", await _context.Companies.Include(c => c.Address).ThenInclude(a => a.Province).ThenInclude(a => a.Districts).ToListAsync());
+            return View("~/Views/Customer/Index.cshtml", await _context.Companies.Include(c => c.Address).ThenInclude(a => a != null ? a.Province : null).ThenInclude(a => a != null ? a.Districts : null).ToListAsync());
         }
 
         [AllowAnonymous]
