@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Adresler";
+}
+@model YemekSiparisSistemi.Models.User
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Customer/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item active">Adreslerim</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row py-3 justify-content-center">
+        <div class="col-12 mb-3">
+            <div class="table-responsive">
+                <table class="table align-middle caption-top text-center">
+                    <caption>Restoranlar Listesi</caption>
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>İl</th>
+                            <th>İlçe</th>
+                            <th>Mahalle</th>
+                            <th>Posta Kodu</th>
+                            <th>Etiket</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Adres.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="8"> Kayıtlı adres bulunmamaktadır!</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            int index = 1;
+                            foreach (var address in Model.Adres)
+                            {
+                                <tr id="@address.Id">
+                                    <td>@index</td>
+                                    <td>@address?.Province?.ProvinceName</td>
+                                    <td>@address?.District?.DistrictName</td>
+                                    <td>@address?.Neighbourhood</td>
+                                    <td>@address?.PostalCode</td>
+                                    <td>@address?.Tag</td>
+                                    <td><a href="#" type="button" class="btn btn-success btn-sm">Düzenle</a></td>
+                                    <td><button onclick="OpenAddressDeleteModal(@address?.Id,'@address?.Tag')" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#addressDeleteModal">Sil</button></td>
+                                </tr>
+                                index++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 text-center">
+            <a href="/Customer/Address/Create" type="button" class="btn btn-sm btn-outline-primary">Yeni Adres Ekle</a>
+        </div>
+    </div>
+</div>
+
+
+<!--toast start-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Yemek Sipariş Sistemi</strong>
+            <small>Az Önce...</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toast-message">
+        </div>
+    </div>
+</div>
+<!--toast end-->
+<!--Delete Modal-->
+<div class="modal" id="addressDeleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adres Sil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="addressDeleteModalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">İptal</button>
+                <button type="button" id="btnDeleteAddress" class="btn btn-primary btn-sm">Evet</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Finish Delete Modal-->
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        function OpenAddressDeleteModal(id, addressTag) {
+            $("#addressDeleteModalMessage").text(addressTag + " isimli adres silinsin mi?");
+            $("#btnDeleteAddress").data("data-id", id);
+        }
+
+        $(document).ready(function () {
+            $("#btnDeleteAddress").click(function () {
+                let addressId = $("#btnDeleteAddress").data("data-id");
+                console.log(addressId);
+                $.ajax({
+                    method: "post",
+                    url: "/Customer/Address/Delete/" + addressId,
+                    success: function (addressTag) {
+                        console.log(addressTag);
+                        if (addressTag != null) {
+                            $("tr#" + addressId).remove();
+                            $("#addressDeleteModal").modal("toggle");
+                            TriggerToast(addressTag, "silindi");
+                        } else {
+                            $("#addressDeleteModal").modal("toggle");
+                            alert("Adres Silme işlemi başarısız!!!");
+                        }
+                    }
+                });
+            });
+        });
+
+
+        function TriggerToast(message, status) {
+            const toast = document.getElementById('toast')
+            const messageBody = document.getElementById("toast-message");
+            messageBody.innerText = message + " isimli adres, başarılı bir şekilde " + status;
+            const instance = bootstrap.Toast.getOrCreateInstance(toast)
+            instance.show();
+        }
+
+    </script>
+}
