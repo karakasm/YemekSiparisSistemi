@@ -19,6 +19,7 @@ namespace YemekSiparisSistemi.Controllers.Admin
         [Route("Roles")]
         public IActionResult Index()
         {
+            ViewData["restaurantCount"] = _context.Companies.Count();
             return View("~/Views/Admin/Role/Index.cshtml", _context.Roles.Include(r => r.Users).ToList());
         }
 

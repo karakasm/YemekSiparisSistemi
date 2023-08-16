@@ -1,5 +1,7 @@
-﻿@{
+﻿@using YemekSiparisSistemi.Models
+@{
     ViewData["Title"] = "Admin-Roller";
+    int restaurantCount = Convert.ToInt32(ViewData["restaurantCount"]);
 }
 @model List<YemekSiparisSistemi.Models.Role>
 <div class="container-fluid">
@@ -42,8 +44,8 @@
                         <tr id=@role.Id>
                             <td>@index</td>
                             <td>@role.RoleName</td>
-                            <td>@role.Users.Count</td>
-                            <td><a id="btnSil" onclick="OpenDeleteModal(@role.Id,'@role.RoleName')" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Sil</a></td>
+                            <td>@(role?.RoleName?.ToLower() == Role.IS_RESTAURANT ? restaurantCount : role?.Users.Count)</td>
+                            <td><a id="btnSil" onclick="OpenDeleteModal(@role?.Id,'@role?.RoleName')" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Sil</a></td>
                         </tr>
                         index++;
                     }
