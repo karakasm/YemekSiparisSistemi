@@ -1,0 +1,37 @@
+﻿ @using YemekSiparisSistemi.Models
+@{
+    ViewData["Title"] = "Ürün Detay";
+    Company? company = ViewData["companyInfo"] as Company;
+}
+@model Product
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Customer/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <a href="/Customer/Restaurants/@company?.Id" style="color:indigo;">@company?.CompanyName</a>
+                </li>
+                <li class="breadcrumb-item">@Model.ProductName</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12 col-md-5">
+            <img src="/Products/@Model.CompanyId/@Model.ProductImagePath" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <div class="col-12 col-md-5 vstack gap-3">
+            <h1>@Model.ProductName</h1>
+            <p >@Model.Content</p>
+            <p>Fiyat:<strong>@Model.UnitPrice</strong></p>
+            <button class="btn w-25 btn-danger hstack gap-3">
+                <i class="bi bi-cart"></i>
+                <span>Sepete Ekle</span>
+            </button>
+        </div>
+    </div>
+</div>
+

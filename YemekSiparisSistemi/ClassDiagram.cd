@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="YemekSiparisSistemi.Models.Address">
+    <Position X="16.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECASAAAAQgCAhAMAAAAAAAAAAgAAAAEAIAAgACAAA=</HashCode>
+      <FileName>Models\Address.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="District" />
+      <Property Name="Province" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Companies" />
+      <Property Name="Deliveries" />
+      <Property Name="Orders" />
+      <Property Name="Users" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Card">
+    <Position X="8.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAADAAAAAAAAAAAAAAAAAAgAQAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Models\Card.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Category">
+    <Position X="20.5" Y="11.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIAAAAAAAAAAAAAACAAAAAAAAAABAAAAAQ=</HashCode>
+      <FileName>Models\Category.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Company" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Products" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Comment">
+    <Position X="13.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAjAAAAAAIAAAAAAAAAAAgAAAAAAAABAAAABAAAAAA=</HashCode>
+      <FileName>Models\Comment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Company" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Company">
+    <Position X="17.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAECQAIAADAAAAAAEAQAAAAAAAAAEAACABAAIAAAIAQ=</HashCode>
+      <FileName>Models\Company.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Address" />
+      <Property Name="Role" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Comments" />
+      <Property Name="Couriers" />
+      <Property Name="Deliveries" />
+      <Property Name="Orders" />
+      <Property Name="Menus" />
+      <Property Name="Products" />
+      <Property Name="Categories" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Courier">
+    <Position X="12" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIAAAAAEAAAAAQABAAAAAAAAAAAJAAAAAA=</HashCode>
+      <FileName>Models\Courier.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Company" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Deliveries" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Delivery">
+    <Position X="14.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAECAAAMAAIIAAAAAAEAAAAAAAAAAAACAAgABAAAAAA=</HashCode>
+      <FileName>Models\Delivery.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Address" />
+      <Property Name="Company" />
+      <Property Name="Courier" />
+      <Property Name="Order" />
+      <Property Name="Status" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.DeliveryStatus">
+    <Position X="11.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DeliveryStatus.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Deliveries" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.District">
+    <Position X="19.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAAAAAAAACAAAAAAAAAAAAAAAAAAAQAAAAgAAAAA=</HashCode>
+      <FileName>Models\District.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Province" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Addresses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Menu">
+    <Position X="17.75" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAKAAAAAAAAAAAAAAAAEQAAAAAAABAAACgA=</HashCode>
+      <FileName>Models\Menu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Company" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="MenuProducts" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.MenuProduct">
+    <Position X="20.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAACAAAAAAAAAAAAAAAAAAAAAAAIBAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\MenuProduct.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Menu" />
+      <Property Name="Product" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Order">
+    <Position X="16.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAADAAABAAIAAAAAEKAQAAgAAAgAQAACAAAABAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Address" />
+      <Property Name="Company" />
+      <Property Name="Payment" />
+      <Property Name="PaymentTypeNavigation" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Deliveries" />
+      <Property Name="OrderProducts" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.OrderProduct">
+    <Position X="22" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAECAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\OrderProduct.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Order" />
+      <Property Name="Product" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Payment">
+    <Position X="13.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEBAAAAAAAQAAAAAAAQAAgAAAgAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Payment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Order" />
+      <Property Name="PaymentTypeNavigation" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.PaymentType">
+    <Position X="18.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAgAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PaymentType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Orders" />
+      <Property Name="Payments" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Product">
+    <Position X="19.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAABAgIAAgAAAAAAAAAAAAAAAAAAAAAABAgICgA=</HashCode>
+      <FileName>Models\Product.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Category" />
+      <Property Name="Company" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="MenuProducts" />
+      <Property Name="OrderProducts" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Province">
+    <Position X="16.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAQAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Province.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Addresses" />
+      <Property Name="Districts" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.Role">
+    <Position X="14.5" Y="11" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAAAAAAABABAAAAIAAgAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Models\Role.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Companies" />
+      <Property Name="Users" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="YemekSiparisSistemi.Models.User">
+    <Position X="11.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAIAACBAAAAAEAAAAAQIBAgAAAACAAAAIAAAIAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Role" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Comments" />
+      <Property Name="Orders" />
+      <Property Name="Payments" />
+      <Property Name="Adres" />
+      <Property Name="Cards" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
