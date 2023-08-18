@@ -1,0 +1,100 @@
+﻿@using YemekSiparisSistemi.Models
+@{
+    ViewData["Title"] = "Sepet";
+}
+@model List<ShoppingCardItem>
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/Customer/Index" style="color:indigo;">Ana Sayfa</a>
+                </li>
+                <li class="breadcrumb-item active">Sepet</li>
+            </ol>
+        </nav>
+    </div>    <div class="row py-3 justify-content-center">
+        <div class="col-12 mb-3">
+            <div class="table-responsive">
+                <table class="table align-middle caption-top text-center">
+                    <caption>Alışveriş Sepeti</caption>
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Ürün Adı</th>
+                            <th>Resmi</th>
+                            <th>Ürün Miktarı</th>
+                            <th>Birim Fiyat</th>
+                            <th>Alt Toplam</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="6"> Sepet Boş!!!</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            int index = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr id="@item.Id">
+                                    <td>@index</td>
+                                    <td>@(item?.Product == null ? item?.Menu?.MenuName : item?.Product?.ProductName)</td>
+                                    @if(item?.Product == null)
+                                    {
+                                        <td><img src="~/Menus/@item?.Menu?.CompanyId/@item?.Menu?.MenuImage" width="50" height="50" style="object-fit:contain;" /></td>
+                                    }
+                                    else
+                                    {
+                                        <td><img src="~/Products/@item.Product.CompanyId/@item.Product.ProductImagePath" width="50" height="50" style="object-fit:contain;" /></td>
+                                    }
+
+                                    <td>@item?.Quantity</td>
+                                    <td>@(item?.Product == null ? item?.Menu?.TotalPrice : item?.Product.UnitPrice)</td>
+                                    <td>@(item?.Product == null ? item?.Menu?.TotalPrice * item?.Quantity : item?.Product.UnitPrice * item?.Quantity)</td>
+                                    <td><button class="btn btn-danger btn-sm" onclick="DeleteItemInCard(@item?.Id)" data-bs-toggle="modal" data-bs-target="#">Sil</button></td>
+                                </tr>
+                                index++;
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6"></td>
+                            <td>Total : <strong>@ViewData["cardTotalPrice"] </strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 text-center">
+            <a href="/Customer/Index" type="button" class="btn btn-sm btn-outline-primary">Yeni Ürün Ekle</a>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        function DeleteItemInCard(itemId){
+            $.ajax({
+                method:"post",
+                url: "/Customer/Card/Item/Delete/" + itemId,
+                success: function (response) {
+                    if (response != null) {
+                        $("tr#" + itemId).remove();
+                        alert("Ürün Listeden çıkarıldı.");
+                    } else {
+                        alert("Bir hata gerçekleşti.");
+                    }
+                },
+            });
+        }
+    </script>
+}
+

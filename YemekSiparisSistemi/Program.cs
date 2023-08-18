@@ -26,14 +26,21 @@ namespace YemekSiparisSistemi
             builder.Services.AddDbContext<FoodOrderSystemDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 
+            builder.Services.AddDistributedMemoryCache();
+
+
             //Add session services to the container
-           // builder.Services.AddSession();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.IsEssential = true;
+            });
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             var app = builder.Build();
 
-
+            app.UseSession();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -46,10 +53,11 @@ namespace YemekSiparisSistemi
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+         
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            //app.UseSession();
+
 
             app.MapControllerRoute(
                 name: "Default",

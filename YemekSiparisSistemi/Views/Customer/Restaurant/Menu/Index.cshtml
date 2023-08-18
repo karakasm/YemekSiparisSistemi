@@ -27,11 +27,14 @@
             <h1>@Model.MenuName</h1>
             <p>@Model.Detail</p>
             <p>Fiyat:<strong>@Model.TotalPrice</strong></p>
-            <button class="btn w-25 btn-danger hstack gap-3">
-                <i class="bi-cart-plus"></i>
-                <span>Sepete Ekle</span>
-            </button>
+            <form method="post" action="/Customer/Card/Menu/@Model.Id">
+                <button type="submit" class="btn w-25 btn-danger hstack gap-3">
+                    <i class="bi-cart-plus"></i>
+                    <span>Sepete Ekle</span>
+                </button>
+            </form>
         </div>
     </div>
 </div>
+
 
