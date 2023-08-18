@@ -43,7 +43,7 @@
                             int index = 1;
                             foreach (var address in Model.Adres)
                             {
-                                <tr id="@address.Id">
+                                <tr id="@address?.Id">
                                     <td>@index</td>
                                     <td>@address?.Province?.ProvinceName</td>
                                     <td>@address?.District?.DistrictName</td>

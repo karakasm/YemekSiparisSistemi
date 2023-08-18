@@ -27,7 +27,7 @@ namespace YemekSiparisSistemi.Controllers.Customer
         public async Task<IActionResult> Index()
         {
 
-            return View("~/Views/Customer/Address/Index.cshtml", await _context.Users.Include(u => u.Adres).ThenInclude(a => a.Province).ThenInclude(a => a.Districts).FirstAsync(u => u.Id == currentUserId));
+            return View("~/Views/Customer/Address/Index.cshtml", await _context.Users.Include(u => u.Adres).ThenInclude(a => a.Province).ThenInclude(a => a == null ? null: a.Districts).FirstAsync(u => u.Id == currentUserId));
         }
 
 
