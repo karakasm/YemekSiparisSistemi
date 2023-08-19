@@ -40,7 +40,7 @@ namespace YemekSiparisSistemi
 
             var app = builder.Build();
 
-            app.UseSession();
+           
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -58,6 +58,7 @@ namespace YemekSiparisSistemi
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "Default",
