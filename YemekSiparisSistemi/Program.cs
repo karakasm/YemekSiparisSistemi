@@ -34,6 +34,7 @@ namespace YemekSiparisSistemi
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.IsEssential = true;
+                options.Cookie.HttpOnly = true;
             });
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -58,6 +59,7 @@ namespace YemekSiparisSistemi
             app.UseAuthentication();
             app.UseAuthorization();
 
+            // It should be registered after the Routing and before the MVC Middleware component.
             app.UseSession();
 
             app.MapControllerRoute(
