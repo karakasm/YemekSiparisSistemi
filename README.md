@@ -1,10 +1,10 @@
-# YemekSiparisSistemi
+# Yemek Sipariş Sistemi
 Staj projesi için Bootstrap, Javascript, JQuery, C#, ASP.NET Core MVC, EF Core ve MSSQL teknolojileri kullanılarak basit bir yemek sipariş uygulaması geliştirilmiştir.
 
-## 1.1 Proje Amacı
+## 1 Proje Amacı
 Bu uygulamanın amacı, yemek firmaları ile müşterileri çevrimiçi ortamda bir araya getiren bir web tabanlı yemek sipariş uygulaması tasarlamaktır.
 
-## 1.2 Senaryo
+### 1.1 Senaryo
 Uygulamada 3 tip kullanıcı vardır. Bunlar sırasıyla yönetici, yemek firması ve müşteridir.
 
 Uygulamanın ilk kullanıcı tipi müşterilerdir. Müşteriler bu uygulama sayesinde kendi civar bölgelerinde hizmet veren yemek firmalarından sipariş verebilir,  
@@ -19,7 +19,7 @@ Teslimat yaptığı ve sipariş aldığı bölgeleri belirleyebilir. Belirlediğ
 Uygulamanın son kullanıcı tipi yöneticilerdir. Yöneticiler, müşterileri, firmaları ve firmalara ait ürünleri ve kuryeleri görüntüleme, silme gibi yetkilere sahiptir.   
 Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya reddedebilir. Siparişlerden ve teslimatlardan haberdar olabilir.   
 
-## 1.3 İş Kuralları
+### 1.2 İş Kuralları
 - Bir kullanıcı yalnızca bir role sahiptir, bir rol ise çok sayıda kullanıcıya verilebilir.
 - Her bir rol, rol kodu ve rol adı bilgilerini içermelidir.
 - Her bir kullanıcının ad, soyad, kullanıcı kodu, rol kodu, e-posta, telefon numarası, adres, parola ve kart bilgileri bulunmalıdır.
@@ -41,10 +41,10 @@ Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya r
 - Bir ödeme yalnızca bir tipte yapılabilir. Bir ödeme tipi bir veya çok sayıda ödemede kullanılabilir.
 - Bir ödeme yalnızca bir müşteriye aittir. Bir müşteri bir veya çok sayıda ödeme işlemi gerçekleştirebilir.
 - Her bir ödeme, sipariş kodu, müşteri kodu, ödeme tipi, ödenen toplam tutar ve ödeme tarihi bilgilerini içermelidir.
--	Bir yemek firması bir adrese sahiptir. Bir adreste yalnızca bir yemek firması bulunur.
--	Her bir yemek firması, firma kodu, firma ismi, firma logosu, adres kodu, e-posta, telefon ve şifre bilgilerini içermelidir.
--	Her firma kendi kategorilerini oluşturacak. Daha sonra yemeklerini bu kategorilere göre atayacak.
--	Bir firma bir veya çok sayıda kategoriye sahip olabilir. Bir kategori ise yalnızca bir firmaya aittir.
+- Bir yemek firması bir adrese sahiptir. Bir adreste yalnızca bir yemek firması bulunur.
+- Her bir yemek firması, firma kodu, firma ismi, firma logosu, adres kodu, e-posta, telefon ve şifre bilgilerini içermelidir.
+- Her firma kendi kategorilerini oluşturacak. Daha sonra yemeklerini bu kategorilere göre atayacak.
+- Bir firma bir veya çok sayıda kategoriye sahip olabilir. Bir kategori ise yalnızca bir firmaya aittir.
 - Her bir yemek kategorisi, kategori kodu, kategori adı, firma kodu bilgilerini içermelidir.
 -	Bir yemek kategorisi bir veya çok sayıda ürün (yiyecek, içecek, sos vb.) içerebilir. Bir ürün ise yalnızca bir yemek kategorisine aittir.
 -	Bir firma bir veya çok sayıda ürün içerebilir. Bir ürün yalnızca bir firmaya aittir.
@@ -67,10 +67,37 @@ Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya r
 -	Bir firmaya bir veya çok sayıda yorum yapılabilir. Bir yorum yalnızca bir firmaya aittir.
 -	Her bir yorum, yorum kodu, firma kodu, müşteri kodu, yorum ve tarih bilgilerini içermelidir.
 
+### 1.3 Varlık İlişki Diyagramı
+![Varlık İlişki Diyagramı](/githubResimler/erd-1.png)
+
+## 2 Bazı Sayfalar
+### 2.1 Yönetici
+<figure>
+    <img src="githubResimler/yonetici/yonetici-ana-sayfa.png"
+         alt="Yönetici Ana Sayfa">
+    <figcaption>Yönetici Ana Sayfa</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/yonetici/yonetici-rol-sayfa.png"
+         alt="Yönetici Rol Sayfa">
+    <figcaption>Yönetici Rol Sayfa</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/yonetici/yonetici-kullanıcı-sayfa.png"
+         alt="Yönetici Kullanıcı Sayfa">
+    <figcaption>Yönetici Kullanıcı Sayfa</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/yonetici/yonetici-restoran-sayfa.png"
+         alt="Yönetici Restoran Sayfa">
+    <figcaption>Yönetici Restoran Sayfa</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/yonetici/yonetici-kullanıcı-ekle-sayfa.png"
+         alt="Yönetici Restoran Ekleme Sayfa">
+    <figcaption>Yönetici Kullanıcı Ekleme Sayfa</figcaption>
+</figure>
 
 
-
-
-
-
+### 2.2 Restoran
 
