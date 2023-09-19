@@ -80,17 +80,17 @@ Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya r
 <figure>
    <img src="githubResimler/yonetici/yonetici-rol-sayfa.png"
          alt="Yönetici Rol Sayfa">
-    <figcaption>Yönetici Rol Sayfa</figcaption>
+    <figcaption>Yönetici Roller Sayfası</figcaption>
 </figure>
 <figure>
    <img src="githubResimler/yonetici/yonetici-kullanıcı-sayfa.png"
          alt="Yönetici Kullanıcı Sayfa">
-    <figcaption>Yönetici Kullanıcı Sayfa</figcaption>
+    <figcaption>Yönetici Kullanıcılar Sayfası</figcaption>
 </figure>
 <figure>
    <img src="githubResimler/yonetici/yonetici-restoran-sayfa.png"
          alt="Yönetici Restoran Sayfa">
-    <figcaption>Yönetici Restoran Sayfa</figcaption>
+    <figcaption>Yönetici Restoranlar Sayfası</figcaption>
 </figure>
 <figure>
    <img src="githubResimler/yonetici/yonetici-kullanıcı-ekle-sayfa.png"
@@ -100,4 +100,50 @@ Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya r
 
 
 ### 2.2 Restoran
+<figure>
+    <img src="githubResimler/restoran/restoran-ana-sayfa.png"
+         alt="Restoran Ana Sayfa">
+    <figcaption>Restoran Ana Sayfa</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/restoran/restoran-kategori-sayfa.png"
+         alt="Restoran Kategori Sayfa">
+    <figcaption>Restoran Kategoriler Sayfası</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/restoran/restoran-urun-sayfa.png"
+         alt="Restoran Urun Sayfa">
+    <figcaption>Restoran Ürünler Sayfası</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/restoran/restoran-menu-sayfa.png"
+         alt="Restoran Menu Sayfa">
+    <figcaption>Restoran Menüler Sayfası</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/restoran/restoran-menu-ekle-sayfa.png"
+         alt="Restoran Menu Ekleme Sayfa">
+    <figcaption>Restoran Menü Ekleme Sayfası</figcaption>
+</figure>
 
+### 2.3 Müşteri
+<figure>
+    <img src="githubResimler/musteri/musteri-ana-sayfa.png"
+         alt="Musteri Ana Sayfa">
+    <figcaption>Müşteri Ana Sayfa</figcaption>
+</figure>
+<figure>
+    <img src="githubResimler/musteri/musteri-restoran-menu.png"
+         alt="Musteri Restoran Menu Sayfa">
+    <figcaption>Müşteri, Restoran Menüler Sayfası</figcaption>
+</figure>
+<figure>
+    <img src="githubResimler/musteri/musteri-restoran-menu-detay.png"
+         alt="Musteri Restoran Menu Detay Sayfa">
+    <figcaption>Müşteri, Restoran Menü Detay Sayfası</figcaption>
+</figure>
+<figure>
+    <img src="githubResimler/musteri/musteri-sepet.png"
+         alt="Musteri Alisveris Listesi">
+    <figcaption>Müşteri, Alışveriş Listesi</figcaption>
+</figure>
