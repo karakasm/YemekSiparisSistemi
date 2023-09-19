@@ -1,10 +1,10 @@
-# YemekSiparisSistemi
+# Yemek Sipariş Sistemi
 Staj projesi için Bootstrap, Javascript, JQuery, C#, ASP.NET Core MVC, EF Core ve MSSQL teknolojileri kullanılarak basit bir yemek sipariş uygulaması geliştirilmiştir.
 
-## 1.1 Proje Amacı
+## 1 Proje Amacı
 Bu uygulamanın amacı, yemek firmaları ile müşterileri çevrimiçi ortamda bir araya getiren bir web tabanlı yemek sipariş uygulaması tasarlamaktır.
 
-## 1.2 Senaryo
+### 1.1 Senaryo
 Uygulamada 3 tip kullanıcı vardır. Bunlar sırasıyla yönetici, yemek firması ve müşteridir.
 
 Uygulamanın ilk kullanıcı tipi müşterilerdir. Müşteriler bu uygulama sayesinde kendi civar bölgelerinde hizmet veren yemek firmalarından sipariş verebilir,  
@@ -19,7 +19,7 @@ Teslimat yaptığı ve sipariş aldığı bölgeleri belirleyebilir. Belirlediğ
 Uygulamanın son kullanıcı tipi yöneticilerdir. Yöneticiler, müşterileri, firmaları ve firmalara ait ürünleri ve kuryeleri görüntüleme, silme gibi yetkilere sahiptir.   
 Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya reddedebilir. Siparişlerden ve teslimatlardan haberdar olabilir.   
 
-## 1.3 İş Kuralları
+### 1.2 İş Kuralları
 - Bir kullanıcı yalnızca bir role sahiptir, bir rol ise çok sayıda kullanıcıya verilebilir.
 - Her bir rol, rol kodu ve rol adı bilgilerini içermelidir.
 - Her bir kullanıcının ad, soyad, kullanıcı kodu, rol kodu, e-posta, telefon numarası, adres, parola ve kart bilgileri bulunmalıdır.
@@ -67,10 +67,20 @@ Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya r
 -	Bir firmaya bir veya çok sayıda yorum yapılabilir. Bir yorum yalnızca bir firmaya aittir.
 -	Her bir yorum, yorum kodu, firma kodu, müşteri kodu, yorum ve tarih bilgilerini içermelidir.
 
+### 1.3 Varlık İlişki Diyagramı
+![Varlık İlişki Diyagramı](/githubResimler/erd-1.png)
 
-
-
-
-
+## 2 Sayfalar
+### 2.1 Yönetici
+<figure>
+    <img src="githubResimler/yonetici/yonetici-ana-sayfa.png"
+         alt="Yönetici Ana Sayfa">
+    <figcaption>Yönetici Ana Sayfa</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/yonetici/yonetici-rol-sayfa.png"
+         alt="Yönetici Rol Sayfa">
+    <figcaption>Yönetici Rol Sayfa</figcaption>
+</figure>
 
 
