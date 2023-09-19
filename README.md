@@ -93,9 +93,11 @@ Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya r
     <figcaption>Yönetici Restoran Sayfa</figcaption>
 </figure>
 <figure>
-   <img src="githubResimler/yonetici/yonetici-restoran-ekle-sayfa.png"
+   <img src="githubResimler/yonetici/yonetici-kullanıcı-ekle-sayfa.png"
          alt="Yönetici Restoran Ekleme Sayfa">
-    <figcaption>Yönetici Restoran Ekleme Sayfa</figcaption>
+    <figcaption>Yönetici Kullanıcı Ekleme Sayfa</figcaption>
 </figure>
+
+
 ### 2.2 Restoran
 
