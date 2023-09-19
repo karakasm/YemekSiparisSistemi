@@ -41,10 +41,10 @@ Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya r
 - Bir ödeme yalnızca bir tipte yapılabilir. Bir ödeme tipi bir veya çok sayıda ödemede kullanılabilir.
 - Bir ödeme yalnızca bir müşteriye aittir. Bir müşteri bir veya çok sayıda ödeme işlemi gerçekleştirebilir.
 - Her bir ödeme, sipariş kodu, müşteri kodu, ödeme tipi, ödenen toplam tutar ve ödeme tarihi bilgilerini içermelidir.
--	Bir yemek firması bir adrese sahiptir. Bir adreste yalnızca bir yemek firması bulunur.
--	Her bir yemek firması, firma kodu, firma ismi, firma logosu, adres kodu, e-posta, telefon ve şifre bilgilerini içermelidir.
--	Her firma kendi kategorilerini oluşturacak. Daha sonra yemeklerini bu kategorilere göre atayacak.
--	Bir firma bir veya çok sayıda kategoriye sahip olabilir. Bir kategori ise yalnızca bir firmaya aittir.
+- Bir yemek firması bir adrese sahiptir. Bir adreste yalnızca bir yemek firması bulunur.
+- Her bir yemek firması, firma kodu, firma ismi, firma logosu, adres kodu, e-posta, telefon ve şifre bilgilerini içermelidir.
+- Her firma kendi kategorilerini oluşturacak. Daha sonra yemeklerini bu kategorilere göre atayacak.
+- Bir firma bir veya çok sayıda kategoriye sahip olabilir. Bir kategori ise yalnızca bir firmaya aittir.
 - Her bir yemek kategorisi, kategori kodu, kategori adı, firma kodu bilgilerini içermelidir.
 -	Bir yemek kategorisi bir veya çok sayıda ürün (yiyecek, içecek, sos vb.) içerebilir. Bir ürün ise yalnızca bir yemek kategorisine aittir.
 -	Bir firma bir veya çok sayıda ürün içerebilir. Bir ürün yalnızca bir firmaya aittir.
@@ -70,7 +70,7 @@ Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya r
 ### 1.3 Varlık İlişki Diyagramı
 ![Varlık İlişki Diyagramı](/githubResimler/erd-1.png)
 
-## 2 Sayfalar
+## 2 Bazı Sayfalar
 ### 2.1 Yönetici
 <figure>
     <img src="githubResimler/yonetici/yonetici-ana-sayfa.png"
@@ -82,5 +82,20 @@ Uygulamaya dahil olmak isteyen firmaların başvurularını onaylayabilir veya r
          alt="Yönetici Rol Sayfa">
     <figcaption>Yönetici Rol Sayfa</figcaption>
 </figure>
-
+<figure>
+   <img src="githubResimler/yonetici/yonetici-kullanıcı-sayfa.png"
+         alt="Yönetici Kullanıcı Sayfa">
+    <figcaption>Yönetici Kullanıcı Sayfa</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/yonetici/yonetici-restoran-sayfa.png"
+         alt="Yönetici Restoran Sayfa">
+    <figcaption>Yönetici Restoran Sayfa</figcaption>
+</figure>
+<figure>
+   <img src="githubResimler/yonetici/yonetici-restoran-ekle-sayfa.png"
+         alt="Yönetici Restoran Ekleme Sayfa">
+    <figcaption>Yönetici Restoran Ekleme Sayfa</figcaption>
+</figure>
+### 2.2 Restoran
 
